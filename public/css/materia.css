@@ -1,0 +1,577 @@
+body{
+    transition: background-color 2s ease;
+}
+#wraplist{
+    width: 90%;
+    background-color: none;
+    margin: auto;
+    padding: 2% 0;
+    border-radius: 50px;
+}
+#svgADD{
+    padding: 12px;
+    position: absolute;
+    border-radius: 15px;
+    left: 14.5%;
+    transition: 2s ease 1s, margin-left 0.7s ease;
+}
+#svgADD:hover{
+    background-color: rgb(250, 217, 217);
+    transition: 0.2s ease, margin-left 0.7s ease, background-color 2s;
+    border: 3px solid firebrick ;
+    fill: firebrick;
+    cursor: pointer;
+    margin-left: 15px;
+    box-shadow: 0px 0px 10px firebrick;
+}
+#svgtitle{
+    position: absolute;
+    color: firebrick;
+    font-weight: bolder;
+    left: 13.2%;    
+    top: 0;
+    opacity: 0;
+    padding: 5px;
+    font-size: large;
+    border-radius: 10px;
+    background-color: #faa7a700; 
+    border: 2px solid firebrick;
+    box-shadow: 0px 0px 10px firebrick;
+}
+
+
+#shoT_Title{
+    color: rgb(46, 0, 98);
+    padding: 10px 15px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px 2px  rgb(0, 0, 0);
+    transition: 1s ease;
+}
+#shoT_Title:hover{
+    width: fit-content;
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+    animation: rotation 600ms ease;
+}
+#shoT_Descricao{
+    margin: 15px 10%;
+    font-size: large;
+    text-align: center;
+    word-break: break-all;
+}
+#shoT_Dia{
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(174, 255, 178);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    transition: 1s ease;
+}
+#shoT_Dia:hover{
+    color: rgb(28, 0, 129);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(71, 255, 86);
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px rgb(37, 0, 122);
+    animation: rotation 600ms ease;
+}
+#shoT_Hoje{
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(255, 247, 174);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    transition: 1s ease;
+}
+#shoT_Hoje:hover{
+    color: rgb(28, 0, 129);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(255, 252, 71);
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px rgb(37, 0, 122);
+    animation: rotation 600ms ease;
+}
+#shoT_Prazo{
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(255, 174, 174);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    transition: 1s ease;
+}
+#shoT_Prazo:hover{
+    color: rgb(0, 0, 105);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    background-color: rgb(255, 123, 71);
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px rgb(64, 3, 163);
+    animation: rotation 600ms ease;
+}
+#shoT_TempoRestante{
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    width: fit-content;
+    margin: 10px auto 0 auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    transition: 1s ease;
+}
+#shoT_TempoRestante:hover{
+    color: rgb(0, 0, 105);
+    padding: 10px;
+    width: fit-content;
+    border-radius: 50px;
+    box-shadow: 0px 0px 20px rgb(0, 0, 0);
+    animation: rotation 600ms ease;
+}
+
+
+
+
+
+.popup-wrapper{
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.popup {
+    font-family: Arial;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 10% auto;
+    padding: 20px;
+    background: white;
+    position: relative;
+}
+.popup-close{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    cursor: pointer;
+    font-size: xx-large;
+    color: firebrick;
+}
+.popup-close:hover{
+    animation: rotation 600ms;
+}
+#form {
+    /* Apenas para centralizar o form na página */
+    margin: auto;
+    width: 500px;
+    /* Para ver as bordas do formulário */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+#form input, textarea {
+    /* Para certificar-se que todos os campos de texto têm as mesmas configurações de fonte. Por padrão, textareas ter uma fonte monospace*/
+    font: 1em sans-serif;
+
+    /* Para dar o mesmo tamanho a todos os campo de texto */
+    width: 80%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /* Para harmonizar o look & feel das bordas nos campos de texto*/
+    border: 1px solid #999;
+}
+#form input:focus, textarea:focus {
+    /* Dar um pouco de destaque nos elementos ativos */
+    /* border-color: #000; */
+}
+#form textarea {
+    /* Para alinhar corretamente os campos de texto de várias linhas com sua label*/
+    vertical-align: top;
+
+    /* Para dar espaço suficiente para digitar algum texto */
+    height: 5em;
+
+    /* Para permitir aos usuários redimensionarem qualquer textarea verticalmente. Ele não funciona em todos os browsers */
+    resize: vertical;
+}
+#form div + div {
+    margin-top: 1em;
+}
+
+.container td {
+	  font-weight: normal;
+      font-size: xx-large;
+     -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+	  -moz-box-shadow: 0 2px 2px -2px #0E1119;
+	    box-shadow: 0 2px 2px -2px #0E1119;
+}
+.container {
+	  text-align: left;
+	  overflow: hidden;
+      width: 80%;
+      height: 400px;
+	  margin: 100px auto 0 auto;
+      display: table;
+      padding: 0 0 0 0;
+      background-color: #888888;
+}
+.container td {
+	  padding-bottom: 2%;
+	  padding-top: 2%;
+      text-align: center;   
+}
+.container th {
+	  padding-bottom: 1.5%;
+	  padding-top: 1.5%;
+      text-align: center;   
+}
+.container td {
+    color: #d3ffa1; 
+    text-decoration: none;
+    /* animation: rotation2 400ms cubic-bezier(0.6, 0.04, 0.98, 0.335) 200ms;     */
+}
+.container td:nth-child(2) {
+    color: rgb(145, 255, 125); 
+    text-decoration: none;
+    font-size: large;   
+}
+.container td:nth-child(3) {
+    color: rgb(255, 164, 164); 
+    text-decoration: none;
+    font-size: large;  
+}
+.container td:nth-child(4) {
+    /* border: 1px solid #000000;  */
+}
+.container tr:nth-child(odd) {
+	  background-color: #323C50;
+}
+.container tr:nth-child(even) {
+	  background-color: #2C3446;
+}
+.container th {
+	background-color: #1F2739;
+}
+.container td:first-child { color: #fddaa2; }
+.container tr:hover {
+   background-color: #464A52;
+-webkit-box-shadow: 0 6px 6px -6px #0E1119;
+	   -moz-box-shadow: 0 6px 6px -6px #0E1119;
+          box-shadow: 0 6px 6px -6px #0E1119;
+}
+.container td:hover {
+  background-color: #fffdbd;
+  color: #403E10;
+  font-weight: bold;
+  cursor: pointer;
+  transition-delay: 0s;
+	transition-duration: 0.4s;
+	transition-property: all;
+  transition-timing-function: line;
+  animation: rotation 400ms cubic-bezier(0.6, 0.04, 0.98, 0.335);
+}
+@keyframes rotation{
+    from{
+        transform: translate3d(0px, 0px, 0) ;        
+    }
+    33%{
+        transform: translate3d(0px, 2px, 0) ;        
+
+    }
+    66%{
+        transform: translate3d(0px, -1px, 0) ;        
+
+    }
+    to{
+        transform: rotate(0.2deg) translate3d(0px, 0px, 0);  
+    }
+}
+@-webkit-keyframes rotation{
+    from{
+        transform: translate3d(0px, 0px, 0) ;        
+    }
+    33%{
+        transform: translate3d(0px, 2px, 0) ;        
+
+    }
+    66%{
+        transform: translate3d(0px, -1px, 0) ;        
+
+    }
+    to{
+        transform: rotate(0.2deg) translate3d(0px, 0px, 0);  
+    }
+}
+@keyframes rotation2{
+    from{
+        transform: rotate(0deg) ;        
+    }
+    33%{
+        transform: rotate(1deg) ;        
+
+    }
+    66%{
+        transform: rotate(-2deg) ;        
+
+    }
+    to{
+        transform: rotate(1deg);  
+    }
+}
+@-webkit-keyframes rotation2{
+    from{
+        transform: rotate(0deg) ;        
+    }
+    33%{
+        transform: rotate(1deg) ;        
+
+    }
+    66%{
+        transform: rotate(-2deg) ;        
+
+    }
+    to{
+        transform: rotate(1deg);  
+    }
+}
+
+#colorBackground{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    border-radius: 100%;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+#colorBackground::-webkit-color-swatch-wrapper {
+    padding: 5px;	
+}
+#colorBackground::-webkit-color-swatch {    
+    border: none;
+    border-radius: 100%;
+}
+
+#redus{
+    background-color: rgb(255, 145, 145);
+}
+#greenes{
+    background-color: rgb(145, 255, 163);
+}
+
+#indicatorRed{
+    width: 35.6%;
+    height:15px;
+    background-color: rgb(251, 98, 98);
+    position: absolute;
+    left: 14.35%; 
+    display: inline-block; 
+    transition: 1.5s ease ;
+}
+
+#indicatorGreen{
+    width: 35.6%;
+    height:15px;
+    background-color: rgb(138, 255, 109); 
+    position: absolute;
+    right: 14.35%;    
+    display: inline-block; 
+    transition: 1.5s ease;
+}
+
+
+#tarefaTitleForm{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#tarefaTitleForm:hover{
+    background-color: rgb(182, 214, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.2s;
+}
+#tarefaTitleForm:focus{
+    background-color: rgb(188, 255, 205);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.2s ;
+}
+#descricao{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+}
+#descricao:hover{
+    background-color: rgb(182, 214, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.2s;
+}
+#descricao:focus{
+    background-color: rgb(188, 255, 205);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.2s ;
+}
+#prazoForm{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#prazoForm:hover{
+    background-color: rgb(182, 214, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.2s;
+}
+#prazoForm:focus{
+    background-color: rgb(188, 255, 205);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.2s ;
+}
+
+
+#addTarefa{
+    width: fit-content;
+    background-color: rgb(222, 255, 196);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 1px 0px rgb(0, 31, 8);
+    font-size: 1.4vw;
+    animation: popout3 0.5s ease 100ms;
+    transition: background-color 1s ease 0.5s,border-radius 800ms ease 100ms, color 1s ease-in 0.6s, box-shadow 2000ms ease-out 0.1s;
+
+}
+#addTarefa:hover{
+    background-color: rgb(188, 236, 160);
+    border-radius: 25px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 30px 0px rgb(201, 255, 204);
+    animation: popout4 0.5s ease;
+    cursor: pointer;
+    transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
+}
+
+input, button, textarea{    
+    outline: none;
+}
+textarea{
+    box-shadow: 0px 0px 5px black;
+}
+
+@-webkit-keyframes popout3 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.03)}
+    to{transform:scale(1)}
+}
+@keyframes popout3 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.03)}
+    to{transform:scale(1)}
+}
+@-webkit-keyframes popout4 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.031)}
+    to{transform:scale(1)}
+}
+@keyframes popout4 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.031)}
+    to{transform:scale(1)}
+}
+@-webkit-keyframes popout {
+    from{transform:scale(1)}
+    50%{transform:scale(1.01)}
+    to{transform:scale(1)}
+}
+@keyframes popout {
+    from{transform:scale(1)}
+    50%{transform:scale(1.01)}
+    to{transform:scale(1)}
+}
+
+
+#buttonComoUsar{    
+    position: fixed; 
+    top: 10px; 
+    left: 10px;
+    font-size: x-large;
+    padding: 10px 20px;
+    background-color: rgba(205, 255, 195, 0.678);
+    box-shadow: 0px 0px 2px 0px black;
+    border-radius: 10px;
+    transition: opacity 0.5s, box-shadow 1s, background-color 1s , border-radius 500ms;
+    animation: popout4 500ms ;
+  
+  }
+   #buttonComoUsar:hover{      
+    padding: 10px 20px;
+    background-color: rgb(13, 255, 182);
+    border-radius: 20px;
+    box-shadow: 0px 0px 12px 0px rgb(243, 228, 228);
+    animation: popout3 500ms ;
+  }
+
+#popupTUTORIAL{
+    width: fit-content;
+    max-width: none;
+  }
+
+.animateSVG:hover{
+    animation: bounce 600ms;
+}
+.animateSVG{
+    animation: bounce_ 900ms;
+    cursor: pointer;
+    fill: white;
+}
+
+td#tdSVG:hover svg{
+    fill: black;
+}
+
+h1, td{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+.pointer:hover{
+    cursor: pointer;
+}
+
+#materiaTitle{
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.384);
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px black;
+}

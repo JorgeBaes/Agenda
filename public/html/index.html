@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <link href="../css/index.css" rel="stylesheet">
+    <link href="../css/popup.css" rel="stylesheet">
+    <link href="../css/table.css" rel="stylesheet">
+    <link href="../css/checkbox.css" rel="stylesheet">
+    <link href="../images/icon.png" type="image/png" rel="shortcut icon">
+
+    <meta name="viewport"content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    </head>
+<body> 
+    <div id="container">
+        <span class="colorChangerText" style="position: fixed; bottom: calc(6.5rem + 30px); left: 20px; font-size: 30px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Enable color</span>
+        <div class="toggle">
+            <input type="checkbox" name="toggle" class="check-checkbox" id="mytoggle">
+            <label class="check-label" for="mytoggle">
+                <div id="background"></div>
+                <span class="face">
+                    <span class="face-container">
+                        <span class="eye left"></span>
+                        <span class="eye right"></span>
+                        <span class="mouth"></span>
+                    </span>
+                </span>
+            </label>
+        </div>
+    </div>
+    <input type="color" name="" id="colorBackground">
+
+    <div id="openPopupCreateSub">    
+        <span class="openPopupCreateSubText" style="position: fixed; top:100px; left: 5px; font-size: 20px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Criar Matéria</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG"  onclick="createSubjectOpenPopup()" id="_x31__x2C_5_px" enable-background="new 0 0 24 24" height="80"
+            viewBox="0 0 24 24" width="80" style="margin:5px 0px 0px 30px;">
+            <title>Add matéria</title>
+            <path
+                d="m17.5 24c-3.584 0-6.5-2.916-6.5-6.5s2.916-6.5 6.5-6.5 6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5zm0-11.5c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
+            <path d="m17.5 21c-.414 0-.75-.336-.75-.75v-5.5c0-.414.336-.75.75-.75s.75.336.75.75v5.5c0 .414-.336.75-.75.75z" />
+            <path d="m20.25 18.25h-5.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h5.5c.414 0 .75.336.75.75s-.336.75-.75.75z" />
+            <path
+                d="m9.19 21h-6.44c-1.517 0-2.75-1.233-2.75-2.75v-15.5c0-1.517 1.233-2.75 2.75-2.75h11.5c1.517 0 2.75 1.233 2.75 2.75v6.09c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-6.09c0-.689-.561-1.25-1.25-1.25h-11.5c-.689 0-1.25.561-1.25 1.25v15.5c0 .689.561 1.25 1.25 1.25h6.44c.414 0 .75.336.75.75s-.336.75-.75.75z" />
+            <path d="m13.25 9.5h-9.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h9.5c.414 0 .75.336.75.75s-.336.75-.75.75z" />
+            <path d="m9.25 13.5h-5.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h5.5c.414 0 .75.336.75.75s-.336.75-.75.75z" />
+            <path d="m8.25 5.5h-4.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h4.5c.414 0 .75.336.75.75s-.336.75-.75.75z" />
+        </svg>  
+    </div>
+
+    <div id="weekDisplay">
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Horário</th>
+                    <th class="text-left day1">Segunda</th>
+                    <th class="text-left day2">&nbsp;&nbsp;Terça&nbsp;</th>
+                    <th class="text-left day3">Quarta&nbsp;</th>
+                    <th class="text-left day4">Quinta&nbsp;</th>
+                    <th class="text-left day5">&nbsp;Sexta&nbsp;</th>
+                    <th class="text-left day6">Sábado&nbsp;</th>
+                    <th class="text-left day7">Domingo</th>
+                    <th class="text-left">&nbsp;&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover" id="weekTbody">
+                <tr>
+                    <td class="text-left" style="text-align: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="addRowToWeekBoardOpenPopup()" class="addSVGIcon animateSVG" height="35pt" viewBox="0 0 512 512" width="35pt">
+                        <path
+                            d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                        </svg></td>
+                    <td class="text-left day1 day"></td>
+                    <td class="text-left day2 day"></td>
+                    <td class="text-left day3 day"></td>
+                    <td class="text-left day4 day"></td>
+                    <td class="text-left day5 day"></td>
+                    <td class="text-left day6 day"></td>
+                    <td class="text-left day7 day"></td>                    
+                </tr>                                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="popup-wrapper" id="popup-wraper-editRow">
+        <div class="popup">
+            <div class="popup-close">X</div>
+            <div class="popup-content">
+                <table class="table-fill">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Horário</th>
+                            <th class="text-left day1">Segunda</th>
+                            <th class="text-left day2">Terça</th>
+                            <th class="text-left day3">Quarta</th>
+                            <th class="text-left day4">Quinta</th>
+                            <th class="text-left day5">Sexta</th>
+                            <th class="text-left day6">Sábado</th>
+                            <th class="text-left day7">Domingo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-hover">
+                        <tr>
+                            <td class="text-left" style="text-align: center;">
+                                <input type="time" name="" id="timeToAddToRowEdit">
+                            </td>
+                            <td class="text-left day1 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday1Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay1Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day2 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday2Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay2Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day3 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday3Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay3Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day4 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday4Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay4Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day5 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday5Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay5Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day6 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday6Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay6Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day7 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday7Edit">
+                                <select name="" class="selectSubDay" id="selectSubDay7Edit">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onclick="updateRowEdited()" class="pointer addAnimationBounce" version="1.1" id="Layer_1" x="0px"
+                    y="0px" viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2; margin-top: 50px;" height="90px" width="90px" xml:space="preserve">
+                    <title>Confirmar</title>
+                    <circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6" />
+                    <path style="fill:#0AA06E;"
+                        d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z" />
+                    <g>
+                        <path style="fill:#FFFFFF;"
+                            d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8   c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z" />
+                        <path style="fill:#FFFFFF;"
+                            d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2   c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z" />
+                    </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="popup-wrapper" id="popup-wraper-createRow">
+        <div class="popup">
+            <div class="popup-close">X</div>
+            <div class="popup-content">
+                <table class="table-fill">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Horário</th>
+                            <th class="text-left day1">Segunda</th>
+                            <th class="text-left day2">Terça</th>
+                            <th class="text-left day3">Quarta</th>
+                            <th class="text-left day4">Quinta</th>
+                            <th class="text-left day5">Sexta</th>
+                            <th class="text-left day6">Sábado</th>
+                            <th class="text-left day7">Domingo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-hover">
+                        <tr>
+                            <td class="text-left" style="text-align: center;">
+                            <input type="time" name="" id="timeToAddToRow">
+                            </td>
+                            <td class="text-left day1 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday1">
+                                <select name="" class="selectSubDay" id="selectSubDay1">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day2 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday2">
+                                <select name="" class="selectSubDay" id="selectSubDay2">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day3 day">
+                                <input type="text"  name="" class="inputTextDay" id="inputTextday3">
+                                <select name="" class="selectSubDay" id="selectSubDay3">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day4 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday4">
+                                <select name="" class="selectSubDay" id="selectSubDay4">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day5 day">
+                                <input type="text" name="" class="inputTextDay" id="inputTextday5">
+                                <select name="" class="selectSubDay" id="selectSubDay5">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day6 day">
+                                <input type="text"  name="" class="inputTextDay" id="inputTextday6">
+                                <select name="" class="selectSubDay" id="selectSubDay6">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                            <td class="text-left day7 day">
+                                <input type="text"  name="" class="inputTextDay" id="inputTextday7">
+                                <select name="" class="selectSubDay" id="selectSubDay7">
+                                    <option value=""></option>
+                                </select>
+                            </td>
+                        </tr>                                       
+                    </tbody>
+                </table>      
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 40px;" onclick="addRowToWeekBoard()" class="addSVGIcon animateSVG" height="45pt"
+                    viewBox="0 0 512 512" width="45pt">
+                    <title>Adicionar linha</title>
+                    <path
+                        d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="popup-wrapper" id="popup-wraper-createSub">
+        <div class="popup">
+            <div class="popup-close">X</div>
+            <div class="popup-content">  
+                <span style="text-align: center; font-size: 30px; color: blue;">Adicione uma matéria</span><br><br>
+                <input type="text" id="textToCreateSub" style="text-align:center;" placeholder="Digite aqui!"> <br> <br>
+                <span style="text-align: center; font-size: 30px; color: rgb(77, 0, 0);">Escolha uma cor</span><br><br>
+                <input type="color" class="pointer" name="" id="subColor"><br>
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;" onclick="createSub()"
+                    class="addSVGIcon animateSVG" height="45pt" viewBox="0 0 512 512" width="45pt">
+                    <title>Add matéria</title>
+                    <path
+                        d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                </svg><br><br><hr><br>
+                <span style="text-align: center; font-size: 30px; color: rgb(167, 0, 0);">Delete uma matéria</span><br><br>
+                <select name="" class="selectSubDay pointer" id="selectSubDayDelete">
+                    <option value=""></option>
+                </select><br>
+                <button id="deleteSubButton" onclick="deleteSub()" title="Deletar matéria" class="pointer addAnimationBounce">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <span style="position: fixed; bottom: 28px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
+    
+    <div id="indicatorRed"></div>
+    <div id="indicatorGreen"></div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="../js/index.js"></script>   
+</body>
+</html>
