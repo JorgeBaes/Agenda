@@ -457,3 +457,24 @@ function openTab(tagName){
         window.open(`../html/materia.html#${sub.id}`,'_blank')
     }
 }
+
+
+window.addEventListener('keydown', ({key}) => {
+    if (key === 'Escape'){
+        popupCreateSub.style.display = 'none'
+        subTextInput.value = ''
+        subColor.value = randomColor()
+        popupCreateRow.style.display = 'none'
+        popupEditRow.style.display = 'none'
+        resetInputs()
+    }
+    if (key === 'Enter' && popupCreateRow.style.display == 'block') {
+        addRowToWeekBoard()
+    }
+    if (key === 'Enter' && popupCreateSub.style.display == 'block') {
+        createSub()
+    }
+    if (key === 'Enter' && popupEditRow.style.display == 'block') {
+        updateRowEdited()
+    }
+})

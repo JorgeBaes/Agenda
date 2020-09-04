@@ -9,7 +9,6 @@ const cancelSGV = `
 <path style="fill:#FFFFFF;" d="M309.6,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6L197.6,373.6  c-11.2,11.2-30.4,11.2-41.6,0l-22.4-22.4c-11.2-11.2-11.2-30.4,0-41.6L309.6,133.6z"/>
 <g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
 </svg>`
-
 const checkSVG = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2; transform:scale(2.5);" xml:space="preserve" width="20px" heigth="20px">
 <circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6"/>
@@ -74,31 +73,31 @@ const tarefas = document.querySelector('#tarefas > tbody')
 const updateTarefas = () => {
     tarefas.innerHTML = ''
     var counter = 0
-    thisSub.activities.forEach(({ tarefa , dia , prazo, done},index) => {
+    thisSub.activities.forEach(({ tarefa, dia, prazo, done }, index) => {
         tarefas.innerHTML += `
-        <tr class="show" id="index${index}" ondblclick="deleteTarefa(${index},'${tarefa}')">
+        <tr class="show" id="index${index}">
             <td onclick="openTarefa(${index})">${tarefa}</td>
             <td>${dia}</td>
             <td>${prazo}</td>
-            <td onclick="checkUncheck(${index})" id="${done ? 'greenes' : 'redus'}">${done ? checkSVG : cancelSGV }</td>
+            <td onclick="checkUncheck(${index})" id="${done ? 'greenes' : 'redus'}">${done ? checkSVG : cancelSGV}</td>
             <td id="tdSVG" onclick="deleteTarefa(${index},'${tarefa}')">${garbageSVG}</td>
         </tr>
         `
-        if(done){
+        if (done) {
             counter++
         }
-    }); 
-    
-    if(counter > 0){
+    });
+
+    if (counter > 0) {
         //verde        
         // document.querySelector('.container').style.background = `rgba(0,255,0,${counter / db.tarefas.length * 0.7 + 0.3})`       
-    } else{
+    } else {
         //vermelho
         // document.querySelector('.container').style.background = `rgba(255,0,0,${Math.abs(counter) / db.tarefas.length * 0.7 + 0.3})`
-    } 
-    if (isNaN(counter / thisSub.activities.length)){
+    }
+    if (isNaN(counter / thisSub.activities.length)) {
         document.querySelector('#indicatorRed').style.width = `${0}%`
-        document.querySelector('#indicatorGreen').style.width = `${1* 71.25}%`
+        document.querySelector('#indicatorGreen').style.width = `${1 * 71.25}%`
     } else {
         document.querySelector('#indicatorRed').style.width = `${Math.abs(thisSub.activities.length - counter) / thisSub.activities.length * 71.25}%`
         document.querySelector('#indicatorGreen').style.width = `${Math.abs(counter / thisSub.activities.length) * 71.25}%`
@@ -128,12 +127,14 @@ const tarefaTitle = document.querySelector('#tarefaTitleForm')
 const tarefaDate = document.querySelector('#prazoForm')
 const descricao = document.querySelector('#descricao')
 tarefaDate.valueAsDate = new Date()
-function popupAddClicked(){
+
+
+function popupAddClicked() {
     popup.style.display = 'block'
     tarefaTitle.focus()
-    setTimeout(()=>{
+    setTimeout(() => {
         tarefaTitle.value = ''
-    },50)
+    }, 50)
 }
 
 function putItRight(e) {
@@ -166,16 +167,14 @@ function putItRight(e) {
     return aux.join('')
 }
 
-
-
-function submitTarefa(){
+function submitTarefa() {
     const toDay = new Date()
     const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
-    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate() + 1).toString() : toDay.getDate() + 1
+    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
-    
-    if (tarefaTitle.value){
-        const newTarefa = 
+
+    if (tarefaTitle.value) {
+        const newTarefa =
         {
             tarefa: tarefaTitle.value,
             dia: toDayString,
@@ -183,66 +182,69 @@ function submitTarefa(){
             prazo: putItRight(tarefaDate.value),
             prazoDate: new Date(tarefaDate.value) || new Date(),
             descricao: descricao.value,
-            done:false
+            done: false
         }
-        socket.emit('newTarefa', { newTarefa: newTarefa, hashCode: hashcode})
+        socket.emit('newTarefa', { newTarefa: newTarefa, hashCode: hashcode })
         tarefaDate.valueAsDate = new Date()
         tarefaTitle.value = ''
         descricao.value = ''
         popup.style.display = 'none'
-    }else{
+    } else {
         window.alert('Qual o nome de sua Tarefa?')
     }
-    
+
 }
 
-function deleteTarefa(trID,tarefa){
-    if (window.confirm(`Certeza que deseja deletar a tarefa ${tarefa}?`)){
-        socket.emit('deleteTarefa', {index:trID , hashCode:hashcode })
+function deleteTarefa(trID, tarefa) {
+    if (window.confirm(`Certeza que deseja deletar a tarefa ${tarefa}?`)) {
+        socket.emit('deleteTarefa', { index: trID, hashCode: hashcode })
     }
 }
 
-function openTarefa(index){
+function openTarefa(index) {
     const t = thisSub.activities[index]
     popup2.style.display = 'block'
     document.querySelector('#shoT_Title').innerText = t.tarefa
     document.querySelector('#shoT_Descricao').innerText = t.descricao
     document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
     document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
-    
+
 
     const toDay = new Date()
     const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
-    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate() + 1).toString() : toDay.getDate() + 1
+    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
 
     document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
     const dif = diffDates(new Date(t.prazoDate), toDay)
     document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
     document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
-    if(dif < 0){
-        if (Math.abs(dif) == 1){
+    if (dif < 0) {
+        if (Math.abs(dif) == 1) {
             document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
-        }else{
+        } else {
             document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
         }
-        
-    }else{
+
+    } else {
         if (Math.abs(dif) == 1) {
             document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
         } else if (dif == 0) {
             document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
-        }else{
+        } else {
             document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
         }
         document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
         document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+        if (dif >=7 ){
+            document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+        }
     }
 
 }
 
-function checkUncheck(index){
-    socket.emit('checkUncheck',{index:index, hashCode: hashcode })
+function checkUncheck(index) {
+    socket.emit('checkUncheck', { index: index, hashCode: hashcode })
 }
 
 function diffDates(dateOne, dateTwo) {
@@ -252,28 +254,20 @@ function diffDates(dateOne, dateTwo) {
     return Math.ceil((dateOne.getTime() - dateTwo.getTime()) / (1000 * 60 * 60 * 24))
 }
 
-function hoverADD(){
+function hoverADD() {
     document.querySelector('#svgtitle').style.opacity = 1
     document.querySelector('#svgtitle').style.transition = '0.2s ease, margin-left 0.7s ease, background-color 2s'
     document.querySelector('#svgtitle').style.backgroundColor = '#faa7a7'
     document.querySelector('#svgtitle').style.marginLeft = '15px'
 }
-function nothoverADD(){
+function nothoverADD() {
     document.querySelector('#svgtitle').style.opacity = 0
     document.querySelector('#svgtitle').style.marginLeft = '0px'
     document.querySelector('#svgtitle').style.backgroundColor = '#faa7a700'
     document.querySelector('#svgtitle').style.transition = '2s ease 1s, margin-left 0.7s ease, background-color 2s'
 }
 
-window.addEventListener('keypress',evt => {
-    const key = evt.key
-    if ((key === 'a' || key === 'A') && popup.style.display != 'block' ){
-        popupAddClicked()
-    }
-    if (key === 'Enter' && popup.style.display == 'block'){
-        submitTarefa()
-    }
-})
+
 
 const poputTutorial = document.querySelector('#popup-tutorial')
 poputTutorial.addEventListener('click', event => {
@@ -305,4 +299,21 @@ window.document.addEventListener('mousemove', (event) => {
     } else {
         comoUsarHide()
     }
+})
+
+window.addEventListener('keydown', ({ key }) => {
+    if (key === 'Escape') {
+        poputTutorial.style.display = 'none'
+        tarefaDate.valueAsDate = new Date()
+        tarefaTitle.value = ''
+        descricao.value = ''
+        popup.style.display = 'none'
+    }
+    if ((key === 'a' || key === 'A') && popup.style.display != 'block') {
+        popupAddClicked()
+    }
+    if (key === 'Enter' && popup.style.display == 'block') {
+        submitTarefa()
+    }
+    popup2.style.display = 'none'
 })

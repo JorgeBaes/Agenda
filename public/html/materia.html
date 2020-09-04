@@ -12,13 +12,12 @@
         <span id="materiaTitle" style="font-size:60px; font-family: Arial, Helvetica, sans-serif; font-weight: 100;"></span>
     </div>
     <input type="color" name="" id="colorBackground">
-    <button id="buttonComoUsar" onclick="showTutorial()">Tutorial</button>
+    <button id="buttonComoUsar" class="pointer" onclick="showTutorial()">Tutorial</button>
     <div id="wraplist">
         <div id="svgtitle">Adicionar Tarefa</div>
         <svg onclick="popupAddClicked()" onmouseover="hoverADD()" onmouseout="nothoverADD()" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
             viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="70px" heigth="70px"
-            id="svgADD">
-            
+            id="svgADD">            
             <g>
                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
                     <path
@@ -96,9 +95,8 @@
             <tbody style="overflow-y:scroll;">
             </tbody>
         </table>
-        <div id="indicatorRed"></div><div id="indicatorGreen"></div>
 
-        
+        <div id="indicatorRed"></div><div id="indicatorGreen"></div>        
 
     </div>
     <div class="popup-wrapper" id="popup-addTarefa">
@@ -152,7 +150,7 @@
                 </div>
                 <div style="margin: 10px auto 20px auto; text-align: left;">                   
                     <span style="font-size: x-large; color: rgb(93, 37, 0); ">
-                        -  Para adicionar uma tarefa clique no ícone no canto superior esquerdo.
+                        -  Para adicionar uma tarefa clique no ícone no canto superior esquerdo. Ou aperte 'a'
                         <br>
                         -  Para excluir uma tarefa clique na lixeira.
                         <br>
