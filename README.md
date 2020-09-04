@@ -6,7 +6,7 @@ Agenda é um aplicativo de agenda em node.
 
 Primeiro você precisa ter o node.js instalado - [baixe node.js aqui](https://nodejs.org/en/download/).<br />
 Depois de instalar o node, baixe este repositório e descompacte-o para uma pasta.<br />
-Crie um atalho do arquivo batch 'Agenda.bat', se quiser adicionar um ícone, você encontra neste caminho public/images/shortcut_icon.ico
+Crie um atalho do arquivo batch 'Agenda.bat', se quiser adicionar um ícone, você encontrá-lo neste caminho public/images/shortcut_icon.ico
 
 ## Como usar
 
@@ -22,7 +22,7 @@ Usando este aplicativo você pode organizar uma rotina semanal, adicionando tags
 Em sua rotina, ao clicar nas tags ('matérias') abrirá uma página na qual você pode adicionar tarefas às tags.
 Você pode:<br />
  - Adicionar tarefas.<br /> 
- - Verificar quanto tempo falta para você cumprí-la.<br />  
+ - Verificar quanto tempo falta para você cumprir uma tarefa.<br />  
  - Ver quantas tarefas foram cumpridas no total. <br />
  - Customizar cores<br />
  - ...<br />
@@ -30,6 +30,7 @@ Você pode:<br />
 A ideia é você criar o que quiser, seja criativo com o modo de organização deste app :)
 
 #### **Detalhe importante: o aplicativo precisa ter acesso à porta 3000, portanto se estiver bloqueada você precisa liberá-la.
+<br />
 
 # Agenda
 
@@ -39,7 +40,7 @@ Agenda is a node agenda app.
 
 First you need to have node.js installed - [download node.js](https://nodejs.org/en/download/).<br />
 Once you have node installed, download this repository and unzip it.<br />
-Create a shortcut for 'Agenda' batch fill. You may also add an icon to the shortcut finding it at the path  public/images/shortcut_icon.ico
+Create a shortcut for 'Agenda' batch file. You may also add an icon to the shortcut finding it at the path public/images/shortcut_icon.ico
 
 ## Usage
 
@@ -52,13 +53,13 @@ It is important to not close the cmd while using it.
 ## What is it for?
 
 With this app you can create a week schedule and organize it as you wish.<br />
-You also can create tags to categorize your events.<br />
-When you click on a tag('subject') a new page is opened in which you can create tasks, making a task list to this tag.
+You can also create tags to categorize your week events.<br />
+When you click on a tag ('subject') a new page is opened in which you can create tasks, making a task list to this tag.
 You can:<br />
  - Add tasks.<br /> 
- - Check how far from the task end you are<br />  
- - Check how many tasks you have completed <br />
- - Customize colors<br />
+ - Check how far from the task end you are.<br />  
+ - Check how many tasks you have completed. <br />
+ - Customize colors.<br />
  - ...<br />
 <br />
 The idea is to be creative and make your own week schedule :)
