@@ -1,21 +1,3 @@
-div.table-title {
-   display: block;
-  margin: auto;
-  max-width: 600px;
-  padding:5px;
-  width: 100%;
-}
-
-.table-title h3 {
-   color: #fafafa;
-   font-size: 30px;
-   font-weight: 400;
-   font-style:normal;
-   font-family: "Roboto", helvetica, arial, sans-serif;
-   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-   text-transform:uppercase;
-}
-
 
 /*** Table Styles **/
 
@@ -25,9 +7,9 @@ div.table-title {
   border-collapse: collapse;
   height: 320px;
   margin: auto;
-  max-width: 600px;
+  width: 80%; 
+  border-collapse: collapse; 
   padding:5px;
-  width: 100%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
 }
@@ -37,9 +19,9 @@ th {
   background:#1b1e24;
   border-bottom:4px solid #9ea7af;
   border-right: 1px solid #343a45;
-  font-size:30px;
+  font-size: xx-large;
   font-weight: 100;
-  padding:34px;
+  padding:15px;
   text-align:left;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   vertical-align:middle;

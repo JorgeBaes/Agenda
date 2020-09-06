@@ -22,8 +22,10 @@
 }
 
 .toggle {
+  transform: scale(0.7) ;
+  transform-origin: left;
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   width: 12.25rem;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -155,9 +157,8 @@
 }
 
 .colorChangerText{
-
     opacity: 0;
-    transition: 10s;
+    transition: 0.8s;
 }
 
 

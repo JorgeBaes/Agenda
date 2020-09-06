@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="../images/icon.png">
     <title>Tarefas</title>
 </head>
-<body>
+<body class=" disable-select">
     <div style="text-align: center; position: fixed; top: 35px; right: 0%; width: 100%;">
         <span id="materiaTitle" style="font-size:60px; font-family: Arial, Helvetica, sans-serif; font-weight: 100;"></span>
     </div>
@@ -30,20 +30,20 @@
             </g>
         </svg>
         
-        <table class="container" id='tarefas'>
+        <table class="container disable-select" id='tarefas'>
             <thead>
                 <tr>
                     <th style="width: 64%;">
-                        <h1 style="text-align: center; font-size: xx-large; color: rgb(255, 232, 174);">Tarefa</h1>
+                        <span class="titleee" style="text-align: center; font-size: 50px; color: rgb(255, 232, 174);">Tarefa</span>
                     </th>
                     <th style="width: 10%;">
-                        <h1 style="text-align: center; font-size: x-large; color: rgb(145, 255, 125);">Dia</h1>
+                        <span class="titleee" style="text-align: center; font-size: 30px; color: rgb(145, 255, 125);">Dia</span>
                     </th>
                     <th style="width: 10%;">
-                        <h1 style="text-align: center; font-size: x-large; color: rgb(255, 164, 164);">Prazo</h1>
+                        <span class="titleee" style="text-align: center; font-size: 30px; color: rgb(255, 164, 164);">Prazo</span>
                     </th>
                     <th style="width: 8%;">
-                        <h1 style="text-align: center; font-size: x-large; color: rgb(255, 232, 174);">Check</h1>
+                        <span class="titleee" style="text-align: center; font-size: 30px; color: rgb(255, 232, 174);">Check</span>
                     </th>
                     <th style="width: 8%;">
                         <svg xmlns="http://www.w3.org/2000/svg" height="35px" width="35px"
@@ -125,7 +125,7 @@
             </div>
         </div>
     </div>
-    <div class="popup-wrapper" id="popup-viewTarefa">
+    <div class="popup-wrapper enable-select" id="popup-viewTarefa">
         <div class="popup">
             <div class="popup-close">×</div>
             <div class="popup-content">

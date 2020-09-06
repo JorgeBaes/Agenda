@@ -315,6 +315,12 @@ function updateWeekColors(){
                 el.style.backgroundColor = color
             })        
         }
+        subjectList.forEach(({id, color}) => {
+            const htmlOBJ = document.querySelector(`#subId_${id}`)
+            if (htmlOBJ){
+                htmlOBJ.style.backgroundColor = color
+            }
+        })
     }else{
         const weektd = [...document.querySelectorAll(`td`)]
         weektd.forEach(el => {
@@ -326,6 +332,12 @@ function updateWeekColors(){
                 el.style.backgroundColor = 'white'
             })
         }
+        subjectList.forEach(({ id }) => {
+            const htmlOBJ = document.querySelector(`#subId_${id}`)
+            if (htmlOBJ) {
+                htmlOBJ.style.backgroundColor = 'white'
+            }
+        })
     }
 }
 
@@ -350,7 +362,6 @@ function updateTaskPorcentageBar(){
         .flat()
         .map(({ done }) => done ? 1 : 0)
         .length
-    console.log(Math.abs(numOfTasksDone / numOfTasks))
     if (isNaN(numOfTasksDone / numOfTasks)){
         document.querySelector('#indicatorRed').style.width = `${0}%`
         document.querySelector('#indicatorGreen').style.width = `${100}%`
@@ -382,31 +393,31 @@ socket.on('updateWeekCalendar', newWeekCalendar => {
         const matDay6C = subjectList.findIndex(el => el.name === matDay6) === -1 ? 'null' : subjectList[subjectList.findIndex(el => el.name === matDay6)].id
         const matDay7C = subjectList.findIndex(el => el.name === matDay7) === -1 ? 'null' : subjectList[subjectList.findIndex(el => el.name === matDay7)].id
         weekTbody.innerHTML+=`
-        <td class="text-center" style="text-align: center;">
+        <td class="text-center disable-select" style="text-align: center;">
         ${timeString}
         </td>
-        <td class="text-center day1 day mat_id_${matDay1C} ${matDay1C === 'null'?'nopointer':'pointer'}" onclick="openTab('${matDay1}')">
+        <td class="text-center disable-select day1 day mat_id_${matDay1C} ${matDay1C === 'null'?'nopointer':'pointer'}" onclick="openTab('${matDay1}')">
             ${day1}<br><span class="matName mat_id_${matDay1C}">${matDay1}</span>
         </td>
-        <td class="text-center day2 day mat_id_${matDay2C} ${matDay2C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay2}')">
+        <td class="text-center disable-select day2 day mat_id_${matDay2C} ${matDay2C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay2}')">
             ${day2}<br><span class="matName mat_id_${matDay2C}">${matDay2}</span>
         </td>
-        <td class="text-center day3 day mat_id_${matDay3C} ${matDay3C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay3}')">
+        <td class="text-center disable-select day3 day mat_id_${matDay3C} ${matDay3C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay3}')">
             ${day3}<br><span class="matName mat_id_${matDay3C}">${matDay3}</span>
         </td>
-        <td class="text-center day4 day mat_id_${matDay4C} ${matDay4C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay4}')">
+        <td class="text-center disable-select day4 day mat_id_${matDay4C} ${matDay4C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay4}')">
             ${day4}<br><span class="matName mat_id_${matDay4C}">${matDay4}</span>
         </td>
-        <td class="text-center day5 day mat_id_${matDay5C} ${matDay5C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay5}')">
+        <td class="text-center disable-select day5 day mat_id_${matDay5C} ${matDay5C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay5}')">
             ${day5}<br><span class="matName mat_id_${matDay5C}">${matDay5}</span>
         </td>
-        <td class="text-center day6 day mat_id_${matDay6C} ${matDay6C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay6}')">
+        <td class="text-center disable-select day6 day mat_id_${matDay6C} ${matDay6C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay6}')">
             ${day6}<br><span class="matName mat_id_${matDay6C}">${matDay6}</span>
         </td>
-        <td class="text-center day7 day mat_id_${matDay7C} ${matDay7C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay7}')">
+        <td class="text-center disable-select day7 day mat_id_${matDay7C} ${matDay7C === 'null' ? 'nopointer' : 'pointer'}" onclick="openTab('${matDay7}')">
             ${day7}<br><span class="matName mat_id_${matDay7C}">${matDay7}</span>
         </td>
-        <td style="width:10px">
+        <td  style="width:10px">
             <span onclick="deleteRow('${id}')">${garbageSVG}</span><span onclick="editRow('${id}')">${editSVG}</span>
         </td>
     </tr>
@@ -414,14 +425,15 @@ socket.on('updateWeekCalendar', newWeekCalendar => {
     });
     weekTbody.innerHTML += 
         `
-    <tr>
-        <td class="text-center">
+    <tr>   
+    <td class="text-center">
             <svg xmlns="http://www.w3.org/2000/svg" onclick="addRowToWeekBoardOpenPopup()" class="addSVGIcon animateSVG" height="35pt" viewBox="0 0 512 512" width="35pt">
             <title>Adicionar Linha</title>
             <path
                 d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
             </svg>
-        </td>                           
+    </td>   
+                                   
     </tr>
     `  
     setTimeout(updateWeekColors(),1000)  
@@ -442,8 +454,23 @@ socket.on('updateSubjects', list => {
             selector.innerHTML +=`<option value="${name}">${name}</option>`
         })
     }
+    const tagsSpace = document.querySelector('#tagsSpace')
+    tagsSpace.innerHTML = ''
+    subjectList.forEach(({name, id}) => {
+        tagsSpace.innerHTML += `
+        <tr>
+            <td class="pointer" id="subId_${id}" onclick="openTabDirectFromRoot('${id}')">
+                ${name}
+            </td>
+        </tr>
+        `
+    })   
+
     setTimeout(updateWeekColors(), 100)
     setTimeout(updateTaskPorcentageBar(), 100)
+    document.querySelector('#hoverButtonOfTagsHow').style.height = `${document.querySelector('#tableOfTags').offsetHeight - 2}px`
+
+    fillTableCalendar(monthCounter, yearCounter)
 })
 
 socket.on('enableColorCheckedUpdate', newBool => {
@@ -458,7 +485,9 @@ function openTab(tagName){
     }
 }
 
-
+function openTabDirectFromRoot(id){
+    window.open(`../html/materia.html#${id}`, '_blank')
+}
 window.addEventListener('keydown', ({key}) => {
     if (key === 'Escape'){
         popupCreateSub.style.display = 'none'
@@ -478,3 +507,212 @@ window.addEventListener('keydown', ({key}) => {
         updateRowEdited()
     }
 })
+
+window.addEventListener('mousemove', event => {
+    if(event.clientX < 150){
+        document.querySelector('.colorChangerText').style.transition = '0.8s'
+        document.querySelector('.colorChangerText').style.opacity = '1'
+        document.querySelector('.openPopupCreateSubText').style.transition = '0.8s'
+        document.querySelector('.openPopupCreateSubText').style.opacity = '1'
+        document.querySelector('#hoverButtonOfTagsHow').style.transition = '0.8s'
+        document.querySelector('#hoverButtonOfTagsHow').style.opacity = '1'
+    }else{
+        document.querySelector('.colorChangerText').style.transition = '5s'
+        document.querySelector('.colorChangerText').style.opacity = '0'
+        document.querySelector('.openPopupCreateSubText').style.transition = '5s'
+        document.querySelector('.openPopupCreateSubText').style.opacity = '0'
+        document.querySelector('#hoverButtonOfTagsHow').style.transition = '8s'
+        document.querySelector('#hoverButtonOfTagsHow').style.opacity = '0'
+    }
+})
+
+
+
+document.querySelector('#hoverButtonOfTagsHow').addEventListener('mouseenter', event => {
+    document.querySelector('#tableOfTags').style.transition = '700ms'
+    document.querySelector('#tableOfTags').style.opacity = '1'
+    document.querySelector('#tableOfTags').style.pointerEvents = 'all'    
+})
+document.querySelector('#tableOfTags').addEventListener('mouseleave', event => {
+    document.querySelector('#tableOfTags').style.transition = '2s'
+    document.querySelector('#tableOfTags').style.opacity = '0'
+    document.querySelector('#tableOfTags').style.pointerEvents = 'none'    
+})
+
+///////////////////0000000000000000000000000000
+
+
+const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+];
+const calendar = new CalendarBase.Calendar({
+    siblingMonths: true,
+    weekStart: true
+});
+const today = new Date();
+
+var monthCounter = today.getUTCMonth()
+var yearCounter = today.getUTCFullYear()
+
+const calendarMonth = document.querySelector('.js-calendar-month'),
+calendarDiv = document.querySelector('.js-calendar');
+calendarMonth.innerHTML = months[today.getUTCMonth()];
+
+const calendarTable = document.querySelector('.table-fill')
+
+
+const daysHaveTheSameYearMonthDay = (day1, day2) =>
+    day1.getUTCFullYear() === day2.getUTCFullYear() &&
+    day1.getUTCMonth() === day2.getUTCMonth() &&
+    day1.getDate() === day2.getDate()
+
+
+function fillTableCalendar(month, year) {
+    const tableRowsList = [...document.querySelectorAll('.tableRow')]
+    tableRowsList.forEach(el => {
+        el.innerHTML = ''
+    })
+    calendarMonth.innerHTML = `${months[month]} - ${year}`;
+    var counterTableRowIndex = 0
+    calendar
+        .getCalendar(year, month)
+        .forEach(function (date, index) {
+            if (date) {
+                tableRowsList[counterTableRowIndex].innerHTML += `
+                <td class="calendar-day disable-select day text-center ${(date.siblingMonth ? ' -sibling-month' : '')}">
+                ${date.day}
+                <div class="flexDivOfTaskSquares" style="display:flex; margin-top:5px; align-items: center;
+                justify-content: center;"
+                value="${new Date(date.year, date.month, date.day)}"> </div>
+                </td>
+                `
+            } else {
+                tableRowsList[counterTableRowIndex].innerHTML += `
+                `
+            }
+            if ((index + 1) % 7 == 0) {
+                counterTableRowIndex++
+            }
+        });
+    const calendarDays = [...document.querySelectorAll('.flexDivOfTaskSquares')]
+    const mappedActivities = subjectList.map( ({activities , id, color}) => {
+        return { id, color, tasks : activities}
+    })
+    calendarDays.forEach(day => {
+        const dayDate = new Date(day.getAttribute('value'))
+        for (let i in mappedActivities) {
+            for (let task of mappedActivities[i].tasks){
+                const taskDate = new Date(task.prazoDateFormat)
+                if (daysHaveTheSameYearMonthDay(taskDate, dayDate)) {
+                    const border = !task.done ? 'box-shadow: 0px 0px 10px 3px #880000; ' : 'box-shadow: 0px 0px 0px 2px green'
+                    day.innerHTML += `
+                    <div class="pointer disable-select" 
+                    style = "background:${mappedActivities[i].color}; width:30px; height:30px; margin:0px 5px;border-radius:30px;${border}"
+                    onclick="openTarefaIDS('${mappedActivities[i].id}','${task.id}')">
+                    </div>
+                    `
+                }
+            }
+        }
+    })
+}
+
+
+function fowardMonth() {
+    monthCounter++
+    if (monthCounter == 12) {
+        monthCounter = 0
+        yearCounter++
+    }
+    fillTableCalendar(monthCounter, yearCounter)
+}
+
+function backWardMonth() {
+    monthCounter--
+    if (monthCounter == -1) {
+        monthCounter = 11
+        yearCounter--
+    }
+    fillTableCalendar(monthCounter, yearCounter)
+}
+
+
+
+function openTarefaIDS(subID , taskID){
+    const subRequested = subjectList[subjectList.findIndex( el => el.id === subID)]
+    const taskRequested = subRequested.activities[subRequested.activities.findIndex(el => el.id === taskID)]
+    openTarefa(taskRequested, subRequested)
+}
+
+const popupViewTarefa = document.querySelector('#popup-viewTarefa')
+popupViewTarefa.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupViewTarefa.style.display = 'none'
+    }
+})
+
+function diffDates(dateOne, dateTwo) {
+    if (typeof dateTwo === 'undefined') {
+        dateTwo = new Date();
+    }
+    return Math.ceil((dateOne.getTime() - dateTwo.getTime()) / (1000 * 60 * 60 * 24))
+}
+
+function openTarefa(t , sub) {
+    
+    document.querySelector('#sub_title').innerText = sub.name
+    document.querySelector('#popupToChangeColor').style.backgroundColor = sub.color+'33'
+
+    popupViewTarefa.style.display = 'block'
+    document.querySelector('#shoT_Title').innerText = t.tarefa
+    document.querySelector('#shoT_Descricao').innerText = t.descricao
+    document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
+    document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
+
+
+    const toDay = new Date()
+    const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
+    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+
+    document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
+    const dif = diffDates(new Date(t.prazoDate), toDay)
+    document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+    document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+    if (dif < 0) {
+        if (Math.abs(dif) == 1) {
+            document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
+        } else {
+            document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
+        }
+
+    } else {
+        if (Math.abs(dif) == 1) {
+            document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
+        } else if (dif == 0) {
+            document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
+        } else {
+            document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
+        }
+        document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+        document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+        if (dif >= 7) {
+            document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+        }
+    }
+
+}

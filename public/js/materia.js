@@ -48,7 +48,7 @@ var db = {}
 
 
 
-
+const idGenerator = (n = 8) => new Array(n).fill().map(_ => ~~(10 * Math.random())).join('')
 const hashcode = location.hash.slice(1)
 var subjectList = []
 var thisSub = null
@@ -73,14 +73,14 @@ const tarefas = document.querySelector('#tarefas > tbody')
 const updateTarefas = () => {
     tarefas.innerHTML = ''
     var counter = 0
-    thisSub.activities.forEach(({ tarefa, dia, prazo, done }, index) => {
+    thisSub.activities.forEach(({ tarefa, dia, prazo, done, id }) => {
         tarefas.innerHTML += `
-        <tr class="show" id="index${index}">
-            <td onclick="openTarefa(${index})">${tarefa}</td>
+        <tr class="show disable-select" id="index${id}">
+            <td onclick="openTarefa('${id}')">${tarefa}</td>
             <td>${dia}</td>
             <td>${prazo}</td>
-            <td onclick="checkUncheck(${index})" id="${done ? 'greenes' : 'redus'}">${done ? checkSVG : cancelSGV}</td>
-            <td id="tdSVG" onclick="deleteTarefa(${index},'${tarefa}')">${garbageSVG}</td>
+            <td onclick="checkUncheck('${id}')" id="${done ? 'greenes' : 'redus'}">${done ? checkSVG : cancelSGV}</td>
+            <td id="tdSVG" onclick="deleteTarefa('${id}','${tarefa}')">${garbageSVG}</td>
         </tr>
         `
         if (done) {
@@ -174,13 +174,23 @@ function submitTarefa() {
     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
 
     if (tarefaTitle.value) {
+        var activitiesTotalList = subjectList.map(({activities}) => activities).flat()
+        var id = idGenerator(10)
+        while (activitiesTotalList.map(el => el.id).indexOf(id) != -1) {
+            id = idGenerator(10)
+        }
+        const prazoDATE = new Date(tarefaDate.value) || new Date()
+        const month_prazo = prazoDATE.getMonth() + 1 < 10 ? 0 + (prazoDATE.getMonth() + 1).toString() : prazoDATE.getMonth() + 1
+        const string_date_prazo = `${month_prazo} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
         const newTarefa =
         {
+            id: id,
             tarefa: tarefaTitle.value,
             dia: toDayString,
             diaDate: toDay,
             prazo: putItRight(tarefaDate.value),
-            prazoDate: new Date(tarefaDate.value) || new Date(),
+            prazoDate: prazoDATE,
+            prazoDateFormat: string_date_prazo,
             descricao: descricao.value,
             done: false
         }
@@ -195,14 +205,14 @@ function submitTarefa() {
 
 }
 
-function deleteTarefa(trID, tarefa) {
+function deleteTarefa(id, tarefa) {
     if (window.confirm(`Certeza que deseja deletar a tarefa ${tarefa}?`)) {
-        socket.emit('deleteTarefa', { index: trID, hashCode: hashcode })
+        socket.emit('deleteTarefa', { id: id, hashCode: hashcode })
     }
 }
 
-function openTarefa(index) {
-    const t = thisSub.activities[index]
+function openTarefa(id) {
+    const t = thisSub.activities[thisSub.activities.findIndex(el => el.id == id)]
     popup2.style.display = 'block'
     document.querySelector('#shoT_Title').innerText = t.tarefa
     document.querySelector('#shoT_Descricao').innerText = t.descricao
@@ -243,8 +253,8 @@ function openTarefa(index) {
 
 }
 
-function checkUncheck(index) {
-    socket.emit('checkUncheck', { index: index, hashCode: hashcode })
+function checkUncheck(id) {
+    socket.emit('checkUncheck', { id: id, hashCode: hashcode })
 }
 
 function diffDates(dateOne, dateTwo) {
@@ -293,7 +303,6 @@ function comoUsarHide() {
 window.document.addEventListener('mousemove', (event) => {
     let y = event.clientY / innerHeight;
     let x = event.clientX / innerWidth;
-    console.log()
     if (y < 0.1 && x < 0.5) {
         comoUsarShow()
     } else {

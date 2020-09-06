@@ -8,13 +8,17 @@
     <link href="../css/popup.css" rel="stylesheet">
     <link href="../css/table.css" rel="stylesheet">
     <link href="../css/checkbox.css" rel="stylesheet">
+    <link href="../css/calendar.css" rel="stylesheet">
     <link href="../images/icon.png" type="image/png" rel="shortcut icon">
 
     <meta name="viewport"content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     </head>
-<body> 
+<body class="disable-select"> 
+    
+    
     <div id="container">
-        <span class="colorChangerText" style="position: fixed; bottom: calc(6.5rem + 30px); left: 20px; font-size: 30px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Enable color</span>
+        <span class="colorChangerText"
+            style="position: fixed; bottom: calc(6.5rem + 0px); left: 10px; font-size: 25px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Colorir tags</span>
         <div class="toggle">
             <input type="checkbox" name="toggle" class="check-checkbox" id="mytoggle">
             <label class="check-label" for="mytoggle">
@@ -29,12 +33,13 @@
             </label>
         </div>
     </div>
+
     <input type="color" name="" id="colorBackground">
 
     <div id="openPopupCreateSub">    
         <span class="openPopupCreateSubText" style="position: fixed; top:100px; left: 5px; font-size: 20px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Criar Matéria</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG"  onclick="createSubjectOpenPopup()" id="_x31__x2C_5_px" enable-background="new 0 0 24 24" height="80"
-            viewBox="0 0 24 24" width="80" style="margin:5px 0px 0px 30px;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" onclick="createSubjectOpenPopup()" id="_x31__x2C_5_px" enable-background="new 0 0 24 24" height="80"
+            viewBox="0 0 24 24" width="80" style="position: fixed; top: 15px; left: 35px;">
             <title>Add matéria</title>
             <path
                 d="m17.5 24c-3.584 0-6.5-2.916-6.5-6.5s2.916-6.5 6.5-6.5 6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5zm0-11.5c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
@@ -47,20 +52,19 @@
             <path d="m8.25 5.5h-4.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h4.5c.414 0 .75.336.75.75s-.336.75-.75.75z" />
         </svg>  
     </div>
-
-    <div id="weekDisplay">
+   <div id="weekDisplay" style="padding-top: 80px;">
         <table class="table-fill">
             <thead>
                 <tr>
-                    <th class="text-left">Horário</th>
-                    <th class="text-left day1">Segunda</th>
-                    <th class="text-left day2">&nbsp;&nbsp;Terça&nbsp;</th>
-                    <th class="text-left day3">Quarta&nbsp;</th>
-                    <th class="text-left day4">Quinta&nbsp;</th>
-                    <th class="text-left day5">&nbsp;Sexta&nbsp;</th>
-                    <th class="text-left day6">Sábado&nbsp;</th>
-                    <th class="text-left day7">Domingo</th>
-                    <th class="text-left">&nbsp;&nbsp;</th>
+                <th class="text-center disable-select">Horário</th>
+                <th class="text-center tabCalendarTH disable-select">Segunda</th>
+                <th class="text-center tabCalendarTH disable-select">Terça</th>
+                <th class="text-center tabCalendarTH disable-select">Quarta</th>
+                <th class="text-center tabCalendarTH disable-select">Quinta</th>
+                <th class="text-center tabCalendarTH disable-select">Sexta</th>
+                <th class="text-center tabCalendarTH disable-select">Sábado</th>
+                <th class="text-center tabCalendarTH disable-select">Domingo</th>
+                <th class="text-center"></th>
                 </tr>
             </thead>
             <tbody class="table-hover" id="weekTbody">
@@ -82,6 +86,54 @@
         </table>
     </div>
 
+    <div id="calendarDisplay" style="text-align: center; margin-top: 50px;">
+    <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG pointer" onclick="backWardMonth()" width="35px" height="35px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px"
+        y="0px" viewBox="0 0 492 492" style="enable-background:new 0 0 492 492;" xml:space="preserve">
+        <g>
+            <g>
+                <path
+                    d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124    c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844    L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412    c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008    c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788    C492,219.198,479.172,207.418,464.344,207.418z" />
+            </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+    </svg>
+    &nbsp;&nbsp;
+    <span class="calendar js-calendar-month disable-select"style="display:inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 50px; width:400px;"></span> 
+    &nbsp;&nbsp;
+    <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG pointer" onclick="fowardMonth()"  width="35px" height="35px"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px"
+        y="0px" viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+        <g>
+            <g>
+                <path
+                    d="M484.14,226.886L306.46,49.202c-5.072-5.072-11.832-7.856-19.04-7.856c-7.216,0-13.972,2.788-19.044,7.856l-16.132,16.136    c-5.068,5.064-7.86,11.828-7.86,19.04c0,7.208,2.792,14.2,7.86,19.264L355.9,207.526H26.58C11.732,207.526,0,219.15,0,234.002    v22.812c0,14.852,11.732,27.648,26.58,27.648h330.496L252.248,388.926c-5.068,5.072-7.86,11.652-7.86,18.864    c0,7.204,2.792,13.88,7.86,18.948l16.132,16.084c5.072,5.072,11.828,7.836,19.044,7.836c7.208,0,13.968-2.8,19.04-7.872    l177.68-177.68c5.084-5.088,7.88-11.88,7.86-19.1C492.02,238.762,489.228,231.966,484.14,226.886z" />
+            </g>
+        </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+    </svg>       
+        
+        <table id="tableCalendar">
+            <thead>
+                <tr>
+                    <th class="text-center tabCalendarTH disable-select">Segunda</th>
+                    <th class="text-center tabCalendarTH disable-select">Terça</th>
+                    <th class="text-center tabCalendarTH disable-select">Quarta</th>
+                    <th class="text-center tabCalendarTH disable-select">Quinta</th>
+                    <th class="text-center tabCalendarTH disable-select">Sexta</th>
+                    <th class="text-center tabCalendarTH disable-select">Sábado</th>
+                    <th class="text-center tabCalendarTH disable-select">Domingo</th>
+                </tr>
+            </thead>
+            <tbody class="table-fill">
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+                <tr class="tableRow"></tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
     <div class="popup-wrapper" id="popup-wraper-editRow">
         <div class="popup">
             <div class="popup-close">X</div>
@@ -89,58 +141,58 @@
                 <table class="table-fill">
                     <thead>
                         <tr>
-                            <th class="text-left">Horário</th>
-                            <th class="text-left day1">Segunda</th>
-                            <th class="text-left day2">Terça</th>
-                            <th class="text-left day3">Quarta</th>
-                            <th class="text-left day4">Quinta</th>
-                            <th class="text-left day5">Sexta</th>
-                            <th class="text-left day6">Sábado</th>
-                            <th class="text-left day7">Domingo</th>
+                            <th class="text-center">Horário</th>
+                            <th class="text-center day1">Segunda</th>
+                            <th class="text-center day2">Terça</th>
+                            <th class="text-center day3">Quarta</th>
+                            <th class="text-center day4">Quinta</th>
+                            <th class="text-center day5">Sexta</th>
+                            <th class="text-center day6">Sábado</th>
+                            <th class="text-center day7">Domingo</th>
                         </tr>
                     </thead>
                     <tbody class="table-hover">
                         <tr>
-                            <td class="text-left" style="text-align: center;">
+                            <td class="text-center" style="text-align: center;">
                                 <input type="time" name="" id="timeToAddToRowEdit">
                             </td>
-                            <td class="text-left day1 day">
+                            <td class="text-center day1 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday1Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay1Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day2 day">
+                            <td class="text-center day2 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday2Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay2Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day3 day">
+                            <td class="text-center day3 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday3Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay3Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day4 day">
+                            <td class="text-center day4 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday4Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay4Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day5 day">
+                            <td class="text-center day5 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday5Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay5Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day6 day">
+                            <td class="text-center day6 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday6Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay6Edit">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day7 day">
+                            <td class="text-center day7 day">
                                 <input type="text" name="" class="inputTextDay" id="inputTextday7Edit">
                                 <select name="" class="selectSubDay" id="selectSubDay7Edit">
                                     <option value=""></option>
@@ -172,59 +224,59 @@
                 <table class="table-fill">
                     <thead>
                         <tr>
-                            <th class="text-left">Horário</th>
-                            <th class="text-left day1">Segunda</th>
-                            <th class="text-left day2">Terça</th>
-                            <th class="text-left day3">Quarta</th>
-                            <th class="text-left day4">Quinta</th>
-                            <th class="text-left day5">Sexta</th>
-                            <th class="text-left day6">Sábado</th>
-                            <th class="text-left day7">Domingo</th>
+                            <th class="text-center">Horário</th>
+                            <th class="text-center day1">Segunda</th>
+                            <th class="text-center day2">Terça</th>
+                            <th class="text-center day3">Quarta</th>
+                            <th class="text-center day4">Quinta</th>
+                            <th class="text-center day5">Sexta</th>
+                            <th class="text-center day6">Sábado</th>
+                            <th class="text-center day7">Domingo</th>
                         </tr>
                     </thead>
                     <tbody class="table-hover">
                         <tr>
-                            <td class="text-left" style="text-align: center;">
+                            <td class="text-center" style="text-align: center;">
                             <input type="time" name="" id="timeToAddToRow">
                             </td>
-                            <td class="text-left day1 day">
-                                <input type="text" name="" class="inputTextDay" id="inputTextday1">
+                            <td class="text-center day1 day">
+                                <input type="text" placeholder="Nome" name="" class="inputTextDay" id="inputTextday1">
                                 <select name="" class="selectSubDay" id="selectSubDay1">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day2 day">
-                                <input type="text" name="" class="inputTextDay" id="inputTextday2">
+                            <td class="text-center day2 day">
+                                <input type="text" name="" placeholder="Nome" class="inputTextDay" id="inputTextday2">
                                 <select name="" class="selectSubDay" id="selectSubDay2">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day3 day">
-                                <input type="text"  name="" class="inputTextDay" id="inputTextday3">
+                            <td class="text-center day3 day">
+                                <input type="text"  name="" placeholder="Nome"class="inputTextDay" id="inputTextday3">
                                 <select name="" class="selectSubDay" id="selectSubDay3">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day4 day">
-                                <input type="text" name="" class="inputTextDay" id="inputTextday4">
+                            <td class="text-center day4 day">
+                                <input type="text" name="" placeholder="Nome" class="inputTextDay" id="inputTextday4">
                                 <select name="" class="selectSubDay" id="selectSubDay4">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day5 day">
-                                <input type="text" name="" class="inputTextDay" id="inputTextday5">
+                            <td class="text-center day5 day">
+                                <input type="text" name="" placeholder="Nome" class="inputTextDay" id="inputTextday5">
                                 <select name="" class="selectSubDay" id="selectSubDay5">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day6 day">
-                                <input type="text"  name="" class="inputTextDay" id="inputTextday6">
+                            <td class="text-center day6 day">
+                                <input type="text"  name="" placeholder="Nome" class="inputTextDay" id="inputTextday6">
                                 <select name="" class="selectSubDay" id="selectSubDay6">
                                     <option value=""></option>
                                 </select>
                             </td>
-                            <td class="text-left day7 day">
-                                <input type="text"  name="" class="inputTextDay" id="inputTextday7">
+                            <td class="text-center day7 day">
+                                <input type="text"  name="" placeholder="Nome" class="inputTextDay" id="inputTextday7">
                                 <select name="" class="selectSubDay" id="selectSubDay7">
                                     <option value=""></option>
                                 </select>
@@ -263,14 +315,46 @@
             </div>
         </div>
     </div>
+    <div class="popup-wrapper" id="popup-viewTarefa">
+        <div class="popup enable-select">
+            <div id="popupToChangeColor" style="padding:40px;">
+                <div class="popup-close">×</div>
+                <div class="popup-content">
+                    <div style="margin: 10px auto 20px auto;">
+                        <h1 id="sub_title"></h1>
+                        <h1 id="shoT_Title"></h1>
+                        <p id="shoT_Descricao"></p>
+                        <h2 id="shoT_Dia"></h2>
+                        <h2 id="shoT_Hoje"></h2>
+                        <h2 id="shoT_Prazo"></h2>
+                        <h2 id="shoT_TempoRestante"></h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <span style="position: fixed; bottom: 28px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
     
     <div id="indicatorRed"></div>
     <div id="indicatorGreen"></div>
-    
+    <div id="hoverButtonOfTagsHow" class="pointer" style="position: fixed; transition: 0.8s; top: 30%; left: 0px; width: 30px; height: 0px;background-color: rgba(0, 0, 0, 0.39);"></div>
+    <table id="tableOfTags" style="display: block; opacity: 0;transition: 1s; position: fixed; top: 30%; pointer-events: none; left: 0;">
+        <thead>
+            <th class="text-center">
+                Tags
+            </th>
+        </thead>
+        <tbody id="tagsSpace">
+        </tbody>
+    </table>
+    <!-- <div id="left-side-sub-show">
+        
+    </div> -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script src="../js/calendar_lib_min.js"></script>
     <script src="../js/index.js"></script>   
 </body>
 </html>

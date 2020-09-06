@@ -298,11 +298,12 @@ io.sockets.on('connection', function (socket) {
         io.emit('updateSubjects', value('subjects'))
     })
 
-    socket.on('checkUncheck', ({ index, hashCode }) => {
+    socket.on('checkUncheck', ({ id, hashCode }) => {
         let subs = db
             .get('subjects')
             .value();
         const sub = subs[subs.findIndex(el => el.id === hashCode)]
+        const index = sub.activities.findIndex(el => el.id == id)
         sub.activities[index].done = !sub.activities[index].done
         db.get('subjects')
             .assign(subs)
@@ -310,11 +311,12 @@ io.sockets.on('connection', function (socket) {
         io.emit('updateSubjects', value('subjects'))
     })
 
-    socket.on('deleteTarefa', ({ index , hashCode }) => {
+    socket.on('deleteTarefa', ({ id , hashCode }) => {
         let subs = db
             .get('subjects')
             .value();
         const sub = subs[subs.findIndex(el => el.id === hashCode)]
+        const index = sub.activities.findIndex(el => el.id == id)
         sub.activities.splice(index,1)
         db.get('subjects')
             .assign(subs)
