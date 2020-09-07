@@ -781,6 +781,7 @@ function openTarefa(t, sub){
     popupViewEvent.style.display = 'block'
 
     document.querySelector('#sub_title_2_3').innerText = sub.name
+    document.querySelector('#sub_title_2_3').style.fontSize = '60px'
     document.querySelector('#shoT_Title_2').innerText = `${t.tarefa}`
     document.querySelector('#shoT_Descricao_2').innerText = t.descricao
     document.querySelector('#shoT_Dia_2').innerText = `${t.prazo}`
@@ -943,6 +944,8 @@ function deleteEvent(id, name){
 
 
 function openEvent(id){
+    document.querySelector('#sub_title_2_3').innerText = 'Evento'
+    document.querySelector('#sub_title_2_3').style.fontSize = '40px'
     const eventReq = eventList[eventList.findIndex( el => el.id === id)]
 
     // document.querySelector('#popupToChangeColor_2').style.backgroundColor = eventReq.color + '33'
