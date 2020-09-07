@@ -812,9 +812,6 @@ function openTarefa(t, sub){
     }
     document.querySelector('#shoT_Hoje_2').innerText =
         `Hoje é dia ${toDayString}, a tarefa ${t.tarefa} ${dif < 0 ? `era pro dia ${t.prazo}` : dif > 0 ? `é pro dia ${t.prazo}` : "é pra hoje"}, ${finalString.toLowerCase()}.`
-
-
-    
 }
 
 /////

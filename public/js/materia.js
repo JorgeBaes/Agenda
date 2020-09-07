@@ -212,13 +212,66 @@ function deleteTarefa(id, tarefa) {
     }
 }
 
+// function openTarefa(id) {
+//     const t = thisSub.activities[thisSub.activities.findIndex(el => el.id == id)]
+//     popup2.style.display = 'block'
+//     document.querySelector('#shoT_Title').innerText = t.tarefa
+//     document.querySelector('#shoT_Descricao').innerText = t.descricao
+//     document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
+//     document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
+
+
+//     const toDay = new Date()
+//     const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+//     const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
+//     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+
+//     document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
+//     const dif = diffDates(new Date(t.prazoDate), toDay)
+//     document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+//     document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+//     if (dif < 0) {
+//         if (Math.abs(dif) == 1) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
+//         } else {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
+//         }
+
+//     } else {
+//         if (Math.abs(dif) == 1) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
+//         } else if (dif == 0) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
+//         } else {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
+//         }
+//         document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+//         document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+//         if (dif >=7 ){
+//             document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+//         }
+//     }
+
+// }
+const popupViewEvent = document.querySelector('#popup-popupViewEvent')
+popupViewEvent.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupViewEvent.style.display = 'none'
+    }
+})
+
 function openTarefa(id) {
     const t = thisSub.activities[thisSub.activities.findIndex(el => el.id == id)]
-    popup2.style.display = 'block'
-    document.querySelector('#shoT_Title').innerText = t.tarefa
-    document.querySelector('#shoT_Descricao').innerText = t.descricao
-    document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
-    document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
+    popupViewEvent.style.display = 'block'
+
+    // document.querySelector('#sub_title_2_3').innerText = sub.name
+    document.querySelector('#sub_title_2_3').style.fontSize = '60px'
+    document.querySelector('#shoT_Title_2').innerText = `${t.tarefa}`
+    document.querySelector('#shoT_Descricao_2').innerText = t.descricao
+    document.querySelector('#shoT_Dia_2').innerText = `${t.prazo}`
 
 
     const toDay = new Date()
@@ -226,31 +279,28 @@ function openTarefa(id) {
     const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
 
-    document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
-    const dif = diffDates(new Date(t.prazoDate), toDay)
-    document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
-    document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+    const dif = diffDates(new Date(t.prazoDateFormat), toDay)
+    var finalString = `faltam ${dif} dias`
     if (dif < 0) {
         if (Math.abs(dif) == 1) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
+            finalString = `Já se passou um dia`
         } else {
-            document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
+            finalString = `Já se passaram ${Math.abs(dif)} dias`
         }
 
     } else {
         if (Math.abs(dif) == 1) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
+            finalString = `Resta um dia para a tarefa`
         } else if (dif == 0) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
+            finalString = `Hoje é o dia de entregar a tarefa`
         } else {
-            document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
-        }
-        document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
-        document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
-        if (dif >=7 ){
-            document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+            finalString = `Restam ${Math.abs(dif)} dias para a tarefa`
         }
     }
+    document.querySelector('#shoT_Hoje_2').innerText =
+        `Hoje é dia ${toDayString}, a tarefa ${t.tarefa} ${dif < 0 ? `era pro dia ${t.prazo}` : dif > 0 ? `é pro dia ${t.prazo}` : "é pra hoje"}, ${finalString.toLowerCase()}.`
+
+
 
 }
 

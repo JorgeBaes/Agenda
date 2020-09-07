@@ -3,31 +3,12 @@
   "enableColorChecked": true,
   "week_calendar": [
     {
-      "id": "2349017422",
-      "timeString": "18:00",
-      "timeCompare": 1080,
-      "day1": "Exemplo nome",
+      "id": "8145617940",
+      "timeString": "10:00",
+      "timeCompare": 600,
+      "day1": "",
       "day2": "",
-      "day3": "Epsum",
-      "day4": "Lorem",
-      "day5": "Ipsum",
-      "day6": "",
-      "day7": "",
-      "matDay1": "Exemplo tag2",
-      "matDay2": "",
-      "matDay3": "Exemplo Tag1",
-      "matDay4": "Exemplo Tag1",
-      "matDay5": "",
-      "matDay6": "",
-      "matDay7": ""
-    },
-    {
-      "id": "6052530557",
-      "timeString": "10:10",
-      "timeCompare": 610,
-      "day1": "Exemplo2",
-      "day2": "",
-      "day3": "Exemplo sem tag",
+      "day3": "",
       "day4": "",
       "day5": "",
       "day6": "",
@@ -36,67 +17,49 @@
       "matDay2": "",
       "matDay3": "",
       "matDay4": "",
-      "matDay5": "Exemplo Tag1",
+      "matDay5": "",
+      "matDay6": "",
+      "matDay7": ""
+    },
+    {
+      "id": "3179070303",
+      "timeString": "14:00",
+      "timeCompare": 840,
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": "",
+      "day6": "",
+      "day7": "",
+      "matDay1": "",
+      "matDay2": "",
+      "matDay3": "",
+      "matDay4": "",
+      "matDay5": "",
+      "matDay6": "",
+      "matDay7": ""
+    },
+    {
+      "id": "2849919409",
+      "timeString": "18:00",
+      "timeCompare": 1080,
+      "day1": "",
+      "day2": "",
+      "day3": "",
+      "day4": "",
+      "day5": "",
+      "day6": "",
+      "day7": "",
+      "matDay1": "",
+      "matDay2": "",
+      "matDay3": "",
+      "matDay4": "",
+      "matDay5": "",
       "matDay6": "",
       "matDay7": ""
     }
   ],
-  "subjects": [
-    {
-      "id": "7185591919",
-      "color": "#beeef9",
-      "name": "Exemplo Tag1",
-      "activities": [
-        {
-          "id": "1190887911",
-          "tarefa": "Tarefa1 tag1",
-          "dia": "06/09/2020",
-          "diaDate": "2020-09-07T02:11:55.091Z",
-          "prazo": "24/09/2020",
-          "prazoDate": "2020-09-24T00:00:00.000Z",
-          "prazoDateFormat": "09 24 2020",
-          "descricao": "Texto da tarefa1 tag1",
-          "done": false
-        }
-      ]
-    },
-    {
-      "id": "6227864004",
-      "color": "#fe9fe2",
-      "name": "Exemplo tag2",
-      "activities": [
-        {
-          "id": "2154366418",
-          "tarefa": "Tarefa",
-          "dia": "06/09/2020",
-          "diaDate": "2020-09-07T02:13:41.963Z",
-          "prazo": "18/09/2020",
-          "prazoDate": "2020-09-18T00:00:00.000Z",
-          "prazoDateFormat": "09 18 2020",
-          "descricao": "Tag",
-          "done": false
-        }
-      ]
-    }
-  ],
-  "events": [
-    {
-      "id": "8208905195",
-      "name": "Exemplo de evento1",
-      "description": "Texto do exemplo",
-      "color": "#4b8f1e",
-      "dateString": "18/09/2020",
-      "date": "2020-09-18T00:00:00.000Z",
-      "prazoDateFormat": "09 18 2020"
-    },
-    {
-      "id": "5722414630",
-      "name": "Subir arquivos no git",
-      "description": "",
-      "color": "#ea8e7b",
-      "dateString": "10/09/2020",
-      "date": "2020-09-10T00:00:00.000Z",
-      "prazoDateFormat": "09 10 2020"
-    }
-  ]
+  "subjects": [],
+  "events": []
 }
