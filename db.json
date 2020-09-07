@@ -1,6 +1,7 @@
 {
-  "background_color": "#d6dfff",
+  "background_color": "#d6d7ff",
   "enableColorChecked": true,
   "week_calendar": [],
-  "subjects": []
+  "subjects": [],
+  "events": []
 }

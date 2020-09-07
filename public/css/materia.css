@@ -57,9 +57,8 @@ body{
 }
 #shoT_Descricao{
     margin: 15px 10%;
-    font-size: large;
+    font-size: x-large;
     text-align: center;
-    word-break: break-all;
 }
 #shoT_Dia{
     color: rgb(0, 0, 0);

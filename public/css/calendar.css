@@ -12,7 +12,7 @@ background: white;
   padding:5px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
-  margin-bottom: 300px;
+  margin-bottom: 100px;
 }
 
 .tabCalendarTH{    
@@ -37,9 +37,8 @@ background: white;
 }
 #shoT_Descricao{
     margin: 15px 10%;
-    font-size: large;
+    font-size: x-large;
     text-align: center;
-    word-break: break-all;
 }
 #shoT_Dia{
     color: rgb(0, 0, 0);

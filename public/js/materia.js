@@ -73,6 +73,7 @@ const tarefas = document.querySelector('#tarefas > tbody')
 const updateTarefas = () => {
     tarefas.innerHTML = ''
     var counter = 0
+    thisSub.activities.sort((a, b) => ((new Date(a.prazoDateFormat)).getTime()) - ((new Date(b.prazoDateFormat)).getTime()))
     thisSub.activities.forEach(({ tarefa, dia, prazo, done, id }) => {
         tarefas.innerHTML += `
         <tr class="show disable-select" id="index${id}">

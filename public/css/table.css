@@ -13,6 +13,9 @@
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   animation: float 5s infinite;
 }
+#eventsDisplayTable{
+  width: 40%; 
+}
  
 th {
   color:#D5DDE5;;
@@ -59,9 +62,16 @@ tr:last-child {
   background:#EBEBEB;
 } */
  
-/* tr:nth-child(odd):hover td {
-  background:#4E5066;
-} */
+tr:hover td {
+  background:#f1f1ff;
+}
+tr:hover td:nth-child(1) {
+  background:#f2fbd0;
+}
+
+#tableCalendar tr:hover td {
+  background:#ffffff;
+}
 
 tr:last-child td:first-child {
   border-bottom-left-radius:3px;

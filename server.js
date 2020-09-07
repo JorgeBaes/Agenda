@@ -198,6 +198,7 @@ io.sockets.on('connection', function (socket) {
     io.emit('updateColor', value('background_color'))
     io.emit('updateColorChecked', value('enableColorChecked'))
     io.emit('updateSubjects', value('subjects'))
+    io.emit('updateEvents', value('events') )
     setTimeout( () => {
         io.emit('updateWeekCalendar', value('week_calendar'))
     },100)
@@ -323,6 +324,26 @@ io.sockets.on('connection', function (socket) {
             .write();
         io.emit('updateSubjects', value('subjects'))
     })
+
+    /////
+
+    socket.on('createEvent', newEvent => {
+        pushIntoArray("events", newEvent)
+        io.emit('updateEvents', value('events'))
+    })
+
+    socket.on('deleteEvent', id => {
+        let events = db
+            .get('events')
+            .value();
+        events.splice(events.findIndex(el => el.id === id), 1);
+        db.get('events')
+            .assign(events)
+            .write();
+        io.emit('updateEvents', value('events'))
+    })
+
+
     // socket.on('disconnect', function () {
 
     // })

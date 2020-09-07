@@ -45,6 +45,7 @@ const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16
 
 var weekCalendar = []
 var subjectList = []
+var eventList = []
 
 
 const enableColorOnSub = document.querySelector('#mytoggle')
@@ -75,7 +76,35 @@ popupCreateRow.addEventListener('click', event => {
     }
 })
 
+const popupViewEvent = document.querySelector('#popup-popupViewEvent')
+popupViewEvent.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupViewEvent.style.display = 'none'
+    }
+})
 
+const popupCreateEvent = document.querySelector('#popup-wraper-createEvent')
+popupCreateEvent.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupCreateEvent.style.display = 'none'
+    }
+})
+
+const popupViewTarefa = document.querySelector('#popup-viewTarefa')
+popupViewTarefa.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupViewTarefa.style.display = 'none'
+    }
+})
 
 const popupCreateSub = document.querySelector('#popup-wraper-createSub')
 function createSubjectOpenPopup() {
@@ -198,10 +227,10 @@ function createSub(){
             subColor.value = randomColor()
             // popupCreateSub.style.display = 'none'            
         }else{
-            window.alert('Esta matéria já existe')
+            window.alert('Esta Tag já existe')
         }
     }else{
-        window.alert('Escreva o nome da matéria')
+        window.alert('Escreva o nome da Tag')
     }
 }
 
@@ -214,9 +243,12 @@ function deleteRow(id){
 const selectSubDayDelete = document.querySelector('#selectSubDayDelete')
 function deleteSub(){
     if (selectSubDayDelete.value !== ''){
-        socket.emit('deleteSub', selectSubDayDelete.value)
-        popupCreateSub.style.display = 'none'
+        if (window.confirm('Você deseja mesmo deletar esta Tag?')) {
+            socket.emit('deleteSub', selectSubDayDelete.value)
+            popupCreateSub.style.display = 'none'
+        }
     }
+    
 }
 
 const popupEditRow = document.querySelector('#popup-wraper-editRow')
@@ -321,6 +353,11 @@ function updateWeekColors(){
                 htmlOBJ.style.backgroundColor = color
             }
         })
+        const divToHaveColorsChange = [...document.querySelectorAll(`.divToHaveColorsChange`)]
+        divToHaveColorsChange.forEach( el => {
+            const color = el.getAttribute('value')
+            el.style.backgroundColor = color
+        })
     }else{
         const weektd = [...document.querySelectorAll(`td`)]
         weektd.forEach(el => {
@@ -337,6 +374,10 @@ function updateWeekColors(){
             if (htmlOBJ) {
                 htmlOBJ.style.backgroundColor = 'white'
             }
+        })
+        const divToHaveColorsChange = [...document.querySelectorAll(`.divToHaveColorsChange`)]
+        divToHaveColorsChange.forEach(el => {
+            el.style.backgroundColor = 'white'
         })
     }
 }
@@ -436,8 +477,8 @@ socket.on('updateWeekCalendar', newWeekCalendar => {
                                    
     </tr>
     `  
-    setTimeout(updateWeekColors(),1000)  
-    setTimeout(updateTaskPorcentageBar(), 500)
+    updateWeekColors()
+    updateTaskPorcentageBar()
 })
 
 socket.on('updateColorChecked', val => {
@@ -448,7 +489,7 @@ socket.on('updateSubjects', list => {
     subjectList = list
     const listOfSelectors = [...document.querySelectorAll('.selectSubDay')]
     for (let selector of listOfSelectors) {
-        selector.innerHTML = '<option value="">Matéria</option>'
+        selector.innerHTML = '<option value="">Tag</option>'
         
         subjectList.forEach( ({name}) => {
             selector.innerHTML +=`<option value="${name}">${name}</option>`
@@ -465,12 +506,17 @@ socket.on('updateSubjects', list => {
         </tr>
         `
     })   
-
-    setTimeout(updateWeekColors(), 100)
-    setTimeout(updateTaskPorcentageBar(), 100)
+    updateWeekColors()
+    updateTaskPorcentageBar()
     document.querySelector('#hoverButtonOfTagsHow').style.height = `${document.querySelector('#tableOfTags').offsetHeight - 2}px`
 
     fillTableCalendar(monthCounter, yearCounter)
+})
+
+socket.on('updateEvents', e_l => {
+    eventList = e_l
+    fillTableCalendar(monthCounter, yearCounter)
+    updateWeekColors()
 })
 
 socket.on('enableColorCheckedUpdate', newBool => {
@@ -481,12 +527,12 @@ socket.on('enableColorCheckedUpdate', newBool => {
 function openTab(tagName){
     if(tagName !== ''){
         const sub = subjectList[subjectList.findIndex(el => el.name === tagName)]
-        window.open(`../html/materia.html#${sub.id}`,'_blank')
+        window.open(`../html/tag.html#${sub.id}`,'_blank')
     }
 }
 
 function openTabDirectFromRoot(id){
-    window.open(`../html/materia.html#${id}`, '_blank')
+    window.open(`../html/tag.html#${id}`, '_blank')
 }
 window.addEventListener('keydown', ({key}) => {
     if (key === 'Escape'){
@@ -495,6 +541,9 @@ window.addEventListener('keydown', ({key}) => {
         subColor.value = randomColor()
         popupCreateRow.style.display = 'none'
         popupEditRow.style.display = 'none'
+        popupViewTarefa.style.display = 'none'
+        popupCreateEvent.style.display = 'none'
+        popupViewEvent.style.display = 'none'
         resetInputs()
     }
     if (key === 'Enter' && popupCreateRow.style.display == 'block') {
@@ -505,6 +554,9 @@ window.addEventListener('keydown', ({key}) => {
     }
     if (key === 'Enter' && popupEditRow.style.display == 'block') {
         updateRowEdited()
+    }
+    if (key === 'Enter' && popupCreateEvent.style.display == 'block') {
+        createEvent()
     }
 })
 
@@ -589,8 +641,12 @@ function fillTableCalendar(month, year) {
         .getCalendar(year, month)
         .forEach(function (date, index) {
             if (date) {
+                const hoy = new Date()
+
+                const add = daysHaveTheSameYearMonthDay(new Date(), new Date(date.year, date.month, date.day))?'background-color:#55990033':''
+                
                 tableRowsList[counterTableRowIndex].innerHTML += `
-                <td class="calendar-day disable-select day text-center ${(date.siblingMonth ? ' -sibling-month' : '')}">
+                <td style="${add}" class="calendar-day disable-select day text-center ${(date.siblingMonth ? ' -sibling-month' : '')}">
                 ${date.day}
                 <div class="flexDivOfTaskSquares" style="display:flex; margin-top:5px; align-items: center;
                 justify-content: center;"
@@ -617,12 +673,23 @@ function fillTableCalendar(month, year) {
                 if (daysHaveTheSameYearMonthDay(taskDate, dayDate)) {
                     const border = !task.done ? 'box-shadow: 0px 0px 10px 3px #880000; ' : 'box-shadow: 0px 0px 0px 2px green'
                     day.innerHTML += `
-                    <div class="pointer disable-select" 
+                    <div class="pointer disable-select divToHaveColorsChange"  value="${mappedActivities[i].color}"
                     style = "background:${mappedActivities[i].color}; width:30px; height:30px; margin:0px 5px;border-radius:30px;${border}"
                     onclick="openTarefaIDS('${mappedActivities[i].id}','${task.id}')">
                     </div>
                     `
                 }
+            }
+        }
+        for( const event of eventList){
+            const eventDate = new Date(event.prazoDateFormat)
+            if (daysHaveTheSameYearMonthDay(eventDate, dayDate)) {
+                day.innerHTML += `
+                    <div class="pointer disable-select divToHaveColorsChange" 
+                    style = "background:${event.color}; width:30px; height:30px; margin:0px 5px; box-shadow:0px 0px 10px black;"
+                    onclick="openEvent('${event.id}')" value="${event.color}">
+                    </div>
+                    `
             }
         }
     })
@@ -655,15 +722,7 @@ function openTarefaIDS(subID , taskID){
     openTarefa(taskRequested, subRequested)
 }
 
-const popupViewTarefa = document.querySelector('#popup-viewTarefa')
-popupViewTarefa.addEventListener('click', event => {
-    const classNameOfClickedElement = event.target.classList[0]
-    const classNames = ['popup-close', 'popup-wrapper']
-    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
-    if (shouldClosePopup) {
-        popupViewTarefa.style.display = 'none'
-    }
-})
+
 
 function diffDates(dateOne, dateTwo) {
     if (typeof dateTwo === 'undefined') {
@@ -672,16 +731,59 @@ function diffDates(dateOne, dateTwo) {
     return Math.ceil((dateOne.getTime() - dateTwo.getTime()) / (1000 * 60 * 60 * 24))
 }
 
-function openTarefa(t , sub) {
+// function openTarefa(t , sub) {
     
-    document.querySelector('#sub_title').innerText = sub.name
-    document.querySelector('#popupToChangeColor').style.backgroundColor = sub.color+'33'
+//     document.querySelector('#sub_title').innerText = sub.name
+//     document.querySelector('#popupToChangeColor').style.backgroundColor = sub.color+'33'
 
-    popupViewTarefa.style.display = 'block'
-    document.querySelector('#shoT_Title').innerText = t.tarefa
-    document.querySelector('#shoT_Descricao').innerText = t.descricao
-    document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
-    document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
+//     popupViewTarefa.style.display = 'block'
+//     document.querySelector('#shoT_Title').innerText = t.tarefa
+//     document.querySelector('#shoT_Descricao').innerText = t.descricao
+//     document.querySelector('#shoT_Prazo').innerText = `Prazo ${t.prazo}`
+//     document.querySelector('#shoT_Dia').innerText = `Dia ${t.dia}`
+
+
+//     const toDay = new Date()
+//     const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+//     const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
+//     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+
+//     document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
+//     const dif = diffDates(new Date(t.prazoDate), toDay)
+//     document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+//     document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+//     if (dif < 0) {
+//         if (Math.abs(dif) == 1) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
+//         } else {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
+//         }
+
+//     } else {
+//         if (Math.abs(dif) == 1) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
+//         } else if (dif == 0) {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
+//         } else {
+//             document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
+//         }
+//         document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+//         document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
+//         if (dif >= 7) {
+//             document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+//         }
+//     }
+
+// }
+
+function openTarefa(t, sub){
+
+    popupViewEvent.style.display = 'block'
+
+    document.querySelector('#sub_title_2_3').innerText = sub.name
+    document.querySelector('#shoT_Title_2').innerText = `${t.tarefa}`
+    document.querySelector('#shoT_Descricao_2').innerText = t.descricao
+    document.querySelector('#shoT_Dia_2').innerText = `${t.prazo}`
 
 
     const toDay = new Date()
@@ -689,30 +791,191 @@ function openTarefa(t , sub) {
     const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
     const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
 
-    document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
-    const dif = diffDates(new Date(t.prazoDate), toDay)
-    document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
-    document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+    const dif = diffDates(new Date(t.prazoDateFormat), toDay)
+    var finalString = `faltam ${dif} dias`
     if (dif < 0) {
         if (Math.abs(dif) == 1) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Já se passou um dia`
+            finalString = `Já se passou um dia`
         } else {
-            document.querySelector('#shoT_TempoRestante').innerText = `Já se passaram ${Math.abs(dif)} dias`
+            finalString = `Já se passaram ${Math.abs(dif)} dias`
         }
 
     } else {
         if (Math.abs(dif) == 1) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Resta um dia`
+            finalString = `Resta um dia para a tarefa`
         } else if (dif == 0) {
-            document.querySelector('#shoT_TempoRestante').innerText = `Hoje é o prazo`
+            finalString = `Hoje é o dia de entregar a tarefa`
         } else {
-            document.querySelector('#shoT_TempoRestante').innerText = `Restam ${Math.abs(dif)} dias`
-        }
-        document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
-        document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 247, 174)'
-        if (dif >= 7) {
-            document.querySelector('#shoT_Title').style.background = 'rgb(174, 255, 178)'
+            finalString = `Restam ${Math.abs(dif)} dias para a tarefa`
         }
     }
+    document.querySelector('#shoT_Hoje_2').innerText =
+        `Hoje é dia ${toDayString}, a tarefa ${t.tarefa} ${dif < 0 ? `era pro dia ${t.prazo}` : dif > 0 ? `é pro dia ${t.prazo}` : "é pra hoje"}, ${finalString.toLowerCase()}.`
 
+
+    
+}
+
+/////
+
+
+
+
+const eventColor = document.querySelector('#eventColor')
+const eventNameInput = document.querySelector('#eventNameInput')
+const eventdescription = document.querySelector('#eventdescription')
+const createEventDate = document.querySelector('#createEventDate')
+
+createEventDate.valueAsDate = new Date()
+
+function openAddEventPopup(){
+    popupCreateEvent.style.display = 'block'
+    eventColor.value = randomColor()
+    createEventDate.valueAsDate = new Date()
+}
+
+
+document.querySelector('#createEventSVG').addEventListener('click', createEvent)
+
+function putItRight(e) {
+    let aux = []
+    for (let index = e.length - 1; index >= 0; index--) {
+        if (index == e.length - 1 || index == e.length - 2) {
+            aux.push(e[index])
+        } else if (index == e.length - 4 || index == e.length - 5) {
+            aux.push(e[index])
+        } else if (index == e.length - 3 || index == e.length - 6) {
+            aux.push('/')
+        } else {
+            aux.push(e[index])
+        }
+    }
+    let aux2 = aux[1]
+    aux[1] = aux[0]
+    aux[0] = aux2
+    aux2 = aux[4]
+    aux[4] = aux[3]
+    aux[3] = aux2
+    aux2 = aux[9]
+    aux3 = aux[8]
+    aux4 = aux[7]
+    aux5 = aux[6]
+    aux[6] = aux2
+    aux[7] = aux3
+    aux[8] = aux4
+    aux[9] = aux5
+    return aux.join('')
+}
+
+
+function createEvent(){
+    if (eventNameInput.value !== ''){
+        var id = idGenerator(10)
+        while (eventList.map(el => el.id).indexOf(id) != -1) {
+            id = idGenerator(10)
+        }
+        const prazoDATE = new Date(createEventDate.value) || new Date()
+        const month_prazo = prazoDATE.getMonth() + 1 < 10 ? 0 + (prazoDATE.getMonth() + 1).toString() : prazoDATE.getMonth() + 1
+        const string_date_prazo = `${month_prazo} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+
+        console.log(string_date_prazo)
+        const newEvent = {
+            id: id,
+            name: eventNameInput.value,
+            description: eventdescription.value,
+            color: eventColor.value,
+            dateString: putItRight(createEventDate.value),
+            date: prazoDATE,
+            prazoDateFormat: string_date_prazo,
+        }
+        socket.emit('createEvent', newEvent)      
+        eventNameInput.value = ''  
+        eventdescription.value = ''
+        popupCreateEvent.style.display = 'none'
+    }else{
+        window.alert('Você precisa dar um nome para o evento!')
+    }
+}
+
+
+socket.on('updateEvents', newEventList => {
+    eventList = newEventList
+    eventsTbody = document.querySelector('#eventsDisplayTableBody')
+    eventsTbody.innerHTML = ''
+    eventList.forEach(({ id, name, dateString }) => {
+        eventsTbody.innerHTML += `
+    <tr>
+        <td class="text-center pointer" onclick="openEvent('${id}')" style="text-align: center;">
+        ${name}
+        </td>
+        <td class="text-center">
+            ${dateString}
+        </td>
+        <td  style="width:10px">
+            <span onclick="deleteEvent('${id}', '${name}')">${garbageSVG}</span>
+        </td>
+    </tr>
+        `
+    });
+    eventsTbody.innerHTML +=
+    `
+    <tr>
+        <td style="text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" onclick="openAddEventPopup()"
+                class="addSVGIcon animateSVG" height="35pt" viewBox="0 0 512 512" width="35pt">
+                <path
+                    d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+        </svg>
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    `
+})
+
+function deleteEvent(id, name){
+    if(window.confirm('Você deseja mesmo deletar o evento ' + name + '?')){
+        socket.emit('deleteEvent', id)
+    }
+}
+
+
+
+
+function openEvent(id){
+    const eventReq = eventList[eventList.findIndex( el => el.id === id)]
+
+    // document.querySelector('#popupToChangeColor_2').style.backgroundColor = eventReq.color + '33'
+
+    popupViewEvent.style.display = 'block'
+    document.querySelector('#shoT_Title_2').innerText = `${eventReq.name}`
+    document.querySelector('#shoT_Descricao_2').innerText = eventReq.description
+    document.querySelector('#shoT_Dia_2').innerText = `${eventReq.dateString}`
+
+
+    const toDay = new Date()
+    const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
+    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+
+    const dif = diffDates(new Date(eventReq.prazoDateFormat), toDay)
+    var finalString = `faltam ${dif} dias`
+    if (dif < 0) {
+        if (Math.abs(dif) == 1) {
+            finalString = `Já se passou um dia`
+        } else {
+            finalString = `Já se passaram ${Math.abs(dif)} dias`
+        }
+        
+    } else {
+        if (Math.abs(dif) == 1) {
+            finalString = `Resta um dia para o evento`
+        } else if (dif == 0) {
+            finalString = `Hoje é o dia do evento`
+        } else {
+            finalString = `Restam ${Math.abs(dif)} dias para o evento`
+        }
+    }
+    document.querySelector('#shoT_Hoje_2').innerText = 
+    `Hoje é dia ${toDayString}, o evento ${eventReq.name} ${dif<0?"aconteceu":dif>0?"acontecerá":"acontece"} dia ${eventReq.dateString}, ${finalString.toLowerCase()}.`
 }

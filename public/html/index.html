@@ -37,10 +37,10 @@
     <input type="color" name="" id="colorBackground">
 
     <div id="openPopupCreateSub">    
-        <span class="openPopupCreateSubText" style="position: fixed; top:100px; left: 5px; font-size: 20px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Criar Matéria</span>
+        <span class="openPopupCreateSubText" style="position: fixed; top:100px; left: 20px; font-size: 20px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Criar Tag</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" onclick="createSubjectOpenPopup()" id="_x31__x2C_5_px" enable-background="new 0 0 24 24" height="80"
             viewBox="0 0 24 24" width="80" style="position: fixed; top: 15px; left: 35px;">
-            <title>Add matéria</title>
+            <title>Add Tag</title>
             <path
                 d="m17.5 24c-3.584 0-6.5-2.916-6.5-6.5s2.916-6.5 6.5-6.5 6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5zm0-11.5c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5z" />
             <path d="m17.5 21c-.414 0-.75-.336-.75-.75v-5.5c0-.414.336-.75.75-.75s.75.336.75.75v5.5c0 .414-.336.75-.75.75z" />
@@ -131,7 +131,31 @@
             </tbody>
         </table>
     </div>
-
+    
+    <div id="eventsDisplay" style="margin-bottom: 600px;">
+            <table class="table-fill" id="eventsDisplayTable">
+                <thead>
+                    <tr>
+                        <th class="text-center ">Evento</th>
+                        <th class="text-center ">Dia</th>
+                        <th class="text-center">
+                            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover" id="eventsDisplayTableBody">
+                    <tr>
+                        <td class="text-left" style="text-align: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" onclick="openAddEventPopup()"
+                                class="addSVGIcon animateSVG" height="35pt" viewBox="0 0 512 512" width="35pt">
+                                <path
+                                    d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                        </svg></td>
+                        <td class="text-left day1 day"></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
 
 
     <div class="popup-wrapper" id="popup-wraper-editRow">
@@ -297,17 +321,17 @@
         <div class="popup">
             <div class="popup-close">X</div>
             <div class="popup-content">  
-                <span style="text-align: center; font-size: 30px; color: blue;">Adicione uma matéria</span><br><br>
+                <span style="text-align: center; font-size: 30px; color: blue;">Adicione uma Tag</span><br><br>
                 <input type="text" id="textToCreateSub" style="text-align:center;" placeholder="Digite aqui!"> <br> <br>
                 <span style="text-align: center; font-size: 30px; color: rgb(77, 0, 0);">Escolha uma cor</span><br><br>
                 <input type="color" class="pointer" name="" id="subColor"><br>
                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;" onclick="createSub()"
                     class="addSVGIcon animateSVG" height="45pt" viewBox="0 0 512 512" width="45pt">
-                    <title>Add matéria</title>
+                    <title>Add Tag</title>
                     <path
                         d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
                 </svg><br><br><hr><br>
-                <span style="text-align: center; font-size: 30px; color: rgb(167, 0, 0);">Delete uma matéria</span><br><br>
+                <span style="text-align: center; font-size: 30px; color: rgb(167, 0, 0);">Delete uma Tag</span><br><br>
                 <select name="" class="selectSubDay pointer" id="selectSubDayDelete">
                     <option value=""></option>
                 </select><br>
@@ -334,13 +358,52 @@
             </div>
         </div>
     </div>
+    <div class="popup-wrapper" id="popup-popupViewEvent">
+        <div class="popup enable-select">
+            <div id="popupToChangeColor_2" style="padding:40px;">
+                <div class="popup-close">×</div>
+                <div class="popup-content">
+                    <div style="margin: 10px auto 20px auto;">
+                        <span id="sub_title_2_3"></span><br><br><br>
+                        <span id="shoT_Title_2"></span> <br>
+                        <span id="shoT_Dia_2"></span><br><br>
+                        <p id="shoT_Descricao_2"></p><br><br>
+                        <p id="shoT_Hoje_2"></p>
+                        
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <div class="popup-wrapper" id="popup-wraper-createEvent">
+        <div class="popup">
+            <div class="popup-close">X</div>
+            <div class="popup-content">
+                <span style="text-align: center; font-size: 30px; color: blue;">Adicione um evento</span><br><br>
+                <input type="text" id="eventNameInput" style="text-align:center;" placeholder="Nome do evento"> <br> <br>
+                <input type="date" name="" id="createEventDate" style="font-size: 30px; height: 40px;"> <br><br>
+                <span style="text-align: center; font-size: 30px; color: rgb(77, 0, 0);">Escolha uma cor</span><br><br>
+                <input type="color" class="pointer" name="" id="eventColor"><br><br>
+                <textarea id="eventdescription" placeholder="Descrição" style="font-size: 20px; height: 160px;"></textarea>
+                <br>  
+                <svg style="margin-top: 20px;" id="createEventSVG" class="addSVGIcon animateSVG" height="45pt" viewBox="0 0 512 512" width="45pt">
+                    <title>Add Tag</title>
+                    <path
+                        d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                </svg>
+                <br>
+            </div>
+        </div>
+    </div>
+    
 
     <span style="position: fixed; bottom: 28px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
     
     <div id="indicatorRed"></div>
     <div id="indicatorGreen"></div>
     <div id="hoverButtonOfTagsHow" class="pointer" style="position: fixed; transition: 0.8s; top: 30%; left: 0px; width: 30px; height: 0px;background-color: rgba(0, 0, 0, 0.39);"></div>
-    <table id="tableOfTags" style="display: block; opacity: 0;transition: 1s; position: fixed; top: 30%; pointer-events: none; left: 0;">
+    <table id="tableOfTags" style="display: block; opacity: 0;transition: 1s; position: fixed; top: 30%; pointer-events: none; left: 0; background-color: rgb(0, 0, 0);">
         <thead>
             <th class="text-center">
                 Tags
