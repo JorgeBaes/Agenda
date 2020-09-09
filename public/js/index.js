@@ -898,6 +898,7 @@ function createEvent(){
 
 socket.on('updateEvents', newEventList => {
     eventList = newEventList
+    eventList.sort((a, b) => new Date(a.prazoDateFormat).getTime() - new Date(b.prazoDateFormat).getTime())
     eventsTbody = document.querySelector('#eventsDisplayTableBody')
     eventsTbody.innerHTML = ''
     eventList.forEach(({ id, name, dateString }) => {
