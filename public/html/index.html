@@ -385,12 +385,56 @@
                 <input type="date" name="" id="createEventDate" style="font-size: 30px; height: 40px;"> <br><br>
                 <span style="text-align: center; font-size: 30px; color: rgb(77, 0, 0);">Escolha uma cor</span><br><br>
                 <input type="color" class="pointer" name="" id="eventColor"><br><br>
-                <textarea id="eventdescription" placeholder="Descrição" style="font-size: 20px; height: 160px;"></textarea>
+                <textarea id="eventdescription" placeholder="Descrição" style="font-size: 30px; height: 160px;"></textarea>
                 <br>  
                 <svg style="margin-top: 20px;" id="createEventSVG" class="addSVGIcon animateSVG" height="45pt" viewBox="0 0 512 512" width="45pt">
                     <title>Add Tag</title>
                     <path
                         d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm112 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" />
+                </svg>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="popup-wrapper" id="popup-wraper-editEvent">
+        <div class="popup">
+            <div class="popup-close">X</div>
+            <div class="popup-content">
+                <span style="text-align: center; font-size: 30px; color: blue;">Edite o evento</span><br><br>
+                <input type="text" id="eventNameInput_edit" style="text-align:center;" placeholder="Nome do evento"> <br> <br>
+                <input type="date" name="" id="createEventDate_edit" style="font-size: 30px; height: 40px;"> <br><br>
+                <span style="text-align: center; font-size: 30px; color: rgb(77, 0, 0);">Escolha uma cor</span><br><br>
+                <input type="color" class="pointer" name="" id="eventColor_edit"><br><br>
+                <textarea id="eventdescription_edit" placeholder="Descrição" style="font-size: 30px; height: 160px;"></textarea>
+                <br>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onclick="updateEventEdited()"
+                    class="pointer addAnimationBounce" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 507.2 507.2"
+                    style="enable-background:new 0 0 507.2 507.2; margin-top: 50px;" height="80px" width="80px" xml:space="preserve">
+                    <title>Editar</title>
+                    <circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6" />
+                    <path style="fill:#0AA06E;"
+                        d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z" />
+                    <g>
+                        <path style="fill:#FFFFFF;"
+                            d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8   c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z" />
+                        <path style="fill:#FFFFFF;"
+                            d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2   c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z" />
+                    </g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
                 </svg>
                 <br>
             </div>

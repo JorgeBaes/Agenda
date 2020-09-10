@@ -40,7 +40,7 @@
     outline: none;
 }
 
-#subColor, #eventColor{
+#subColor, #eventColor, #eventColor_edit{
     height: 40px;
     width: 200px;
     border-radius: 10px;

@@ -27,7 +27,7 @@ body{
     cursor: pointer;
 }
 
-#textToCreateSub , #eventNameInput{
+#textToCreateSub , #eventNameInput , #eventNameInput_edit{
     font-size: 30px;
 }
 
@@ -126,7 +126,7 @@ span.openPopupCreateSubText{
    -ms-user-select: text; /* Internet Explorer/Edge */
 }
 
-#createEventDate{
+#createEventDate, #createEventDate_edit{
     font-family: sans-serif;
     width: 70%;
     border-radius: 10px;
@@ -141,7 +141,19 @@ span.openPopupCreateSubText{
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
+#createEventDate_edit:hover{
+    background-color: rgb(182, 214, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.2s;
+}
 #createEventDate:focus{
+    background-color: rgb(188, 255, 205);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.2s ;
+}
+#createEventDate_edit:focus{
     background-color: rgb(188, 255, 205);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;

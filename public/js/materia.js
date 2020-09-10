@@ -43,6 +43,20 @@ const garbageSVG = `
 	</g>
 </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g>/g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`
 
+const editSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" height="35px" width="35px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 477.873 477.873" style="enable-background:new 0 0 477.873 477.873; margin-right:-7px" xml:space="preserve">
+<title>Editar</title>
+<g>
+	<g>
+		<path d="M392.533,238.937c-9.426,0-17.067,7.641-17.067,17.067V426.67c0,9.426-7.641,17.067-17.067,17.067H51.2    c-9.426,0-17.067-7.641-17.067-17.067V85.337c0-9.426,7.641-17.067,17.067-17.067H256c9.426,0,17.067-7.641,17.067-17.067    S265.426,34.137,256,34.137H51.2C22.923,34.137,0,57.06,0,85.337V426.67c0,28.277,22.923,51.2,51.2,51.2h307.2    c28.277,0,51.2-22.923,51.2-51.2V256.003C409.6,246.578,401.959,238.937,392.533,238.937z"/>
+	</g>
+</g>
+<g>
+	<g>
+		<path d="M458.742,19.142c-12.254-12.256-28.875-19.14-46.206-19.138c-17.341-0.05-33.979,6.846-46.199,19.149L141.534,243.937    c-1.865,1.879-3.272,4.163-4.113,6.673l-34.133,102.4c-2.979,8.943,1.856,18.607,10.799,21.585    c1.735,0.578,3.552,0.873,5.38,0.875c1.832-0.003,3.653-0.297,5.393-0.87l102.4-34.133c2.515-0.84,4.8-2.254,6.673-4.13    l224.802-224.802C484.25,86.023,484.253,44.657,458.742,19.142z"/>
+	</g>
+</g><g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+</svg>`
 
 var db = {}
 
@@ -81,7 +95,10 @@ const updateTarefas = () => {
             <td>${dia}</td>
             <td>${prazo}</td>
             <td onclick="checkUncheck('${id}')" id="${done ? 'greenes' : 'redus'}">${done ? checkSVG : cancelSGV}</td>
-            <td id="tdSVG" onclick="deleteTarefa('${id}','${tarefa}')">${garbageSVG}</td>
+            <td id="tdSVG">
+             <span id="spanSVG" onclick="deleteTarefa('${id}','${tarefa}')">${garbageSVG}</span>
+             <span id="spanSVG" onclick="editTarefa('${id}')">${editSVG}</span>
+             </td>
         </tr>
         `
         if (done) {
@@ -108,6 +125,7 @@ const updateTarefas = () => {
 
 const popup = document.querySelector('#popup-addTarefa')
 const popup2 = document.querySelector('#popup-viewTarefa')
+const popup3 = document.querySelector('#popup-editTarefa')
 popup.addEventListener('click', event => {
     const classNameOfClickedElement = event.target.classList[0]
     const classNames = ['popup-close', 'popup-wrapper']
@@ -124,6 +142,15 @@ popup2.addEventListener('click', event => {
         popup2.style.display = 'none'
     }
 })
+popup3.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popup3.style.display = 'none'
+    }
+})
+
 const tarefaTitle = document.querySelector('#tarefaTitleForm')
 const tarefaDate = document.querySelector('#prazoForm')
 const descricao = document.querySelector('#descricao')
@@ -171,9 +198,10 @@ function putItRight(e) {
 function submitTarefa() {
     const toDay = new Date()
     const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
-    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
-    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
-
+    var day = '0' + toDay.getDate()
+    if (day.length == 3) {
+        day = day.slice(1)
+    }    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
     if (tarefaTitle.value) {
         var activitiesTotalList = subjectList.map(({activities}) => activities).flat()
         var id = idGenerator(10)
@@ -181,8 +209,7 @@ function submitTarefa() {
             id = idGenerator(10)
         }
         const prazoDATE = new Date(tarefaDate.value) || new Date()
-        const month_prazo = prazoDATE.getMonth() + 1 < 10 ? 0 + (prazoDATE.getMonth() + 1).toString() : prazoDATE.getMonth() + 1
-        const string_date_prazo = `${month_prazo} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+        const string_date_prazo = `${prazoDATE.getUTCMonth() + 1} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
         const newTarefa =
         {
             id: id,
@@ -210,6 +237,48 @@ function deleteTarefa(id, tarefa) {
     if (window.confirm(`Certeza que deseja deletar a tarefa ${tarefa}?`)) {
         socket.emit('deleteTarefa', { id: id, hashCode: hashcode })
     }
+}
+
+var idOfTarefaThatIsBeingEdited = null
+
+function editTarefa(id){
+    idOfTarefaThatIsBeingEdited = id
+    const t = thisSub.activities[thisSub.activities.findIndex(el => el.id == id)]
+    popup3.style.display = 'block'
+    document.querySelector('#tarefaTitleForm_edit').value = t.tarefa
+    document.querySelector('#prazoForm_edit').valueAsDate = new Date(t.prazoDateFormat)
+    document.querySelector('#descricao_edit').value = t.descricao
+}
+
+function updateTarefaEdited(){
+    const tarefaDate_edit = document.querySelector('#prazoForm_edit')
+    const tarefaTitle_edit = document.querySelector('#tarefaTitleForm_edit')
+    const descricao_edit = document.querySelector('#descricao_edit')
+    
+    const toDay = new Date()
+    const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+    var day = '0'+toDay.getDate() 
+    if(day.length == 3){
+        day = day.slice(1)
+    }
+    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+    const prazoDATE = new Date(tarefaDate_edit.value) || new Date()
+
+    const string_date_prazo = `${prazoDATE.getUTCMonth() + 1} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+    const newTarefa =
+    {
+        id: idOfTarefaThatIsBeingEdited,
+        tarefa: tarefaTitle_edit.value,
+        dia: toDayString,
+        diaDate: toDay,
+        prazo: putItRight(tarefaDate_edit.value),
+        prazoDate: prazoDATE,
+        prazoDateFormat: string_date_prazo,
+        descricao: descricao_edit.value,
+        done: false
+    }
+    socket.emit('editTarefa', { tarefa: newTarefa, id: idOfTarefaThatIsBeingEdited, hashCode: hashcode})    
+    popup3.style.display = 'none'
 }
 
 // function openTarefa(id) {
@@ -368,8 +437,11 @@ window.addEventListener('keydown', ({ key }) => {
         tarefaTitle.value = ''
         descricao.value = ''
         popup.style.display = 'none'
+        popup3.style.display = 'none'
+        popupViewEvent.style.display = 'none'
+        poputTutorial.style.display = 'none'
     }
-    if ((key === 'a' || key === 'A') && popup.style.display != 'block') {
+    if ((key === 'a' || key === 'A') && popup.style.display != 'block' && popup3.style.display != 'block' && popup2.style.display != 'block' && popupViewEvent.style.display != 'block' && poputTutorial.style.display != 'block') {
         popupAddClicked()
     }
     if (key === 'Enter' && popup.style.display == 'block') {

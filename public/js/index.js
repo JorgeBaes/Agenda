@@ -261,7 +261,15 @@ popupEditRow.addEventListener('click', event => {
     }
 })
 
-
+const popupEditEvent = document.querySelector('#popup-wraper-editEvent')
+popupEditEvent.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupEditEvent.style.display = 'none'
+    }
+})
 
 
 const selectSubDay1Edit = document.querySelector('#selectSubDay1Edit')
@@ -544,6 +552,7 @@ window.addEventListener('keydown', ({key}) => {
         popupViewTarefa.style.display = 'none'
         popupCreateEvent.style.display = 'none'
         popupViewEvent.style.display = 'none'
+        popupEditEvent.style.display = 'none'
         resetInputs()
     }
     if (key === 'Enter' && popupCreateRow.style.display == 'block') {
@@ -873,10 +882,9 @@ function createEvent(){
             id = idGenerator(10)
         }
         const prazoDATE = new Date(createEventDate.value) || new Date()
-        const month_prazo = prazoDATE.getMonth() + 1 < 10 ? 0 + (prazoDATE.getMonth() + 1).toString() : prazoDATE.getMonth() + 1
-        const string_date_prazo = `${month_prazo} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+        const string_date_prazo = `${prazoDATE.getUTCMonth() + 1} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
 
-        console.log(string_date_prazo)
+        
         const newEvent = {
             id: id,
             name: eventNameInput.value,
@@ -896,6 +904,42 @@ function createEvent(){
 }
 
 
+var idOfEventToBeChanged = null
+const eventColor_edit = document.querySelector('#eventColor_edit')
+const eventNameInput_edit = document.querySelector('#eventNameInput_edit')
+const eventdescription_edit = document.querySelector('#eventdescription_edit')
+const createEventDate_edit = document.querySelector('#createEventDate_edit')
+
+function editEvent(id){
+    idOfEventToBeChanged = id
+    const eventToEdit = eventList[eventList.findIndex(el => el.id == id)]
+    popupEditEvent.style.display = 'block'
+    eventColor_edit.value = eventToEdit.color
+    eventNameInput_edit.value = eventToEdit.name
+    eventdescription_edit.value = eventToEdit.description
+    createEventDate_edit.valueAsDate = new Date(eventToEdit.date)
+}
+
+
+function updateEventEdited(){
+    const prazoDATE = new Date(createEventDate_edit.value) || new Date()
+    const string_date_prazo = `${prazoDATE.getUTCMonth() + 1} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+
+    const newEvent = {
+        id: idOfEventToBeChanged,
+        name: eventNameInput_edit.value,
+        description: eventdescription_edit.value,
+        color: eventColor_edit.value,
+        dateString: putItRight(createEventDate_edit.value),
+        date: prazoDATE,
+        prazoDateFormat: string_date_prazo,
+    }
+    popupEditEvent.style.display = 'none'
+    socket.emit('editEvent', { id: idOfEventToBeChanged,newEvent: newEvent})  
+}
+
+
+
 socket.on('updateEvents', newEventList => {
     eventList = newEventList
     eventList.sort((a, b) => new Date(a.prazoDateFormat).getTime() - new Date(b.prazoDateFormat).getTime())
@@ -912,6 +956,7 @@ socket.on('updateEvents', newEventList => {
         </td>
         <td  style="width:10px">
             <span onclick="deleteEvent('${id}', '${name}')">${garbageSVG}</span>
+            <span onclick="editEvent('${id}')">${editSVG}</span>
         </td>
     </tr>
         `
@@ -937,9 +982,6 @@ function deleteEvent(id, name){
         socket.emit('deleteEvent', id)
     }
 }
-
-
-
 
 function openEvent(id){
     document.querySelector('#sub_title_2_3').innerText = 'Evento'

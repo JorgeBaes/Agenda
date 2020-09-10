@@ -60,6 +60,46 @@
       "matDay7": ""
     }
   ],
-  "subjects": [],
-  "events": []
+  "subjects": [
+    {
+      "id": "0071434860",
+      "color": "#bff3c0",
+      "name": "Tag example",
+      "activities": [
+        {
+          "id": "1169899915",
+          "tarefa": "3",
+          "dia": "10/09/2020",
+          "diaDate": "2020-09-10T03:07:41.081Z",
+          "prazo": "02/09/2020",
+          "prazoDate": "2020-09-02T00:00:00.000Z",
+          "prazoDateFormat": "9 2 2020",
+          "descricao": "",
+          "done": false
+        },
+        {
+          "id": "0582021608",
+          "tarefa": "312312312",
+          "dia": "09/09/2020",
+          "diaDate": "2020-09-10T02:33:32.799Z",
+          "prazo": "10/09/2020",
+          "prazoDate": "2020-09-10T00:00:00.000Z",
+          "prazoDateFormat": "9 10 2020",
+          "descricao": "",
+          "done": false
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "2187449177",
+      "name": "1",
+      "description": "4",
+      "color": "#000000",
+      "dateString": "30/09/2020",
+      "date": "2020-09-30T00:00:00.000Z",
+      "prazoDateFormat": "9 30 2020"
+    }
+  ]
 }

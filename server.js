@@ -325,6 +325,20 @@ io.sockets.on('connection', function (socket) {
         io.emit('updateSubjects', value('subjects'))
     })
 
+    socket.on('editTarefa',( { tarefa, id, hashCode}) => {
+        let subs = db
+            .get('subjects')
+            .value();
+        const sub = subs[subs.findIndex(el => el.id === hashCode)]
+        const index = sub.activities.findIndex(el => el.id == id)
+        sub.activities[index] = tarefa
+        db.get('subjects')
+            .assign(subs)
+            .write();
+        io.emit('updateSubjects', value('subjects'))
+    })    
+
+
     /////
 
     socket.on('createEvent', newEvent => {
@@ -342,6 +356,17 @@ io.sockets.on('connection', function (socket) {
             .write();
         io.emit('updateEvents', value('events'))
     })
+
+    socket.on('editEvent', ({ id, newEvent }) => {
+        let events = db
+            .get('events')
+            .value();
+        events[events.findIndex(el => el.id === id)] = newEvent
+        db.get('events')
+            .assign(events)
+            .write();
+        io.emit('updateEvents', value('events'))
+    }) 
 
 
     // socket.on('disconnect', function () {
