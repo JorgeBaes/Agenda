@@ -66,6 +66,7 @@ const idGenerator = (n = 8) => new Array(n).fill().map(_ => ~~(10 * Math.random(
 const hashcode = location.hash.slice(1)
 var subjectList = []
 var thisSub = null
+var eventList = []
 
 const colorInput = document.querySelector('#colorBackground')
 colorInput.addEventListener('input', () => {
@@ -80,6 +81,11 @@ socket.on('updateSubjects', list => {
     colorInput.value = thisSub.color
     document.querySelector('body').style.backgroundColor = thisSub.color
     updateTarefas()
+    fillTableCalendar(monthCounter, yearCounter)
+})
+socket.on('updateEvents', e_l => {
+    eventList = e_l
+    fillTableCalendar(monthCounter, yearCounter)
 })
 
 
@@ -336,7 +342,8 @@ function openTarefa(id) {
     const t = thisSub.activities[thisSub.activities.findIndex(el => el.id == id)]
     popupViewEvent.style.display = 'block'
 
-    // document.querySelector('#sub_title_2_3').innerText = sub.name
+    document.querySelector('#sub_title_2_3').innerText = ''
+
     document.querySelector('#sub_title_2_3').style.fontSize = '60px'
     document.querySelector('#shoT_Title_2').innerText = `${t.tarefa}`
     document.querySelector('#shoT_Descricao_2').innerText = t.descricao
@@ -449,3 +456,170 @@ window.addEventListener('keydown', ({ key }) => {
     }
     popup2.style.display = 'none'
 })
+
+
+const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+];
+const calendar = new CalendarBase.Calendar({
+    siblingMonths: true,
+    weekStart: true
+});
+const today = new Date();
+
+var monthCounter = today.getUTCMonth()
+var yearCounter = today.getUTCFullYear()
+
+const calendarMonth = document.querySelector('.js-calendar-month'),
+    calendarDiv = document.querySelector('.js-calendar');
+calendarMonth.innerHTML = months[today.getUTCMonth()];
+
+const calendarTable = document.querySelector('.table-fill')
+
+
+const daysHaveTheSameYearMonthDay = (day1, day2) =>
+    day1.getUTCFullYear() === day2.getUTCFullYear() &&
+    day1.getUTCMonth() === day2.getUTCMonth() &&
+    day1.getDate() === day2.getDate()
+
+
+function fillTableCalendar(month, year) {
+    const tableRowsList = [...document.querySelectorAll('.tableRow')]
+    tableRowsList.forEach(el => {
+        el.innerHTML = ''
+    })
+    calendarMonth.innerHTML = `${months[month]} - ${year}`;
+    var counterTableRowIndex = 0
+    calendar
+        .getCalendar(year, month)
+        .forEach(function (date, index) {
+            if (date) {
+                const hoy = new Date()
+
+                const add = daysHaveTheSameYearMonthDay(new Date(), new Date(date.year, date.month, date.day)) ? 'background-color:#55990033' : ''
+
+                tableRowsList[counterTableRowIndex].innerHTML += `
+                <td style="${add}" class="calendar-day disable-select day text-center ${(date.siblingMonth ? ' -sibling-month' : '')}">
+                ${date.day}
+                <div class="flexDivOfTaskSquares" style="display:flex; margin-top:5px; align-items: center;
+                justify-content: center;"
+                value="${new Date(date.year, date.month, date.day)}"> </div>
+                </td>
+                `
+            } else {
+                tableRowsList[counterTableRowIndex].innerHTML += `
+                `
+            }
+            if ((index + 1) % 7 == 0) {
+                counterTableRowIndex++
+            }
+        });
+    const calendarDays = [...document.querySelectorAll('.flexDivOfTaskSquares')]
+    const mappedActivities = thisSub.activities
+    calendarDays.forEach(day => {
+        const dayDate = new Date(day.getAttribute('value'))
+        for (let task of mappedActivities) {
+            const taskDate = new Date(task.prazoDateFormat)
+            if (daysHaveTheSameYearMonthDay(taskDate, dayDate)) {
+                const border = !task.done ? 'box-shadow: 0px 0px 10px 3px #880000; ' : 'box-shadow: 0px 0px 0px 2px green'
+                day.innerHTML += `
+                    <div class="pointer disable-select divToHaveColorsChange"  value="${thisSub.color}"
+                    style = "background:${thisSub.color}; width:30px; height:30px; margin:0px 5px;border-radius:30px;${border}"
+                    onclick="openTarefa('${task.id}')">
+                    </div>
+                    `
+            }
+        }
+        for (const event of eventList) {
+            const eventDate = new Date(event.prazoDateFormat)
+            if (daysHaveTheSameYearMonthDay(eventDate, dayDate)) {
+                day.innerHTML += `
+                    <div class="pointer disable-select divToHaveColorsChange" 
+                    style = "background:${event.color}; width:30px; height:30px; margin:0px 5px; box-shadow:0px 0px 10px black;"
+                    onclick="openEvent('${event.id}')" value="${event.color}">
+                    </div>
+                    `
+            }
+        }
+    })
+}
+
+
+function fowardMonth() {
+    monthCounter++
+    if (monthCounter == 12) {
+        monthCounter = 0
+        yearCounter++
+    }
+    fillTableCalendar(monthCounter, yearCounter)
+}
+
+function backWardMonth() {
+    monthCounter--
+    if (monthCounter == -1) {
+        monthCounter = 11
+        yearCounter--
+    }
+    fillTableCalendar(monthCounter, yearCounter)
+}
+
+// const popupViewEvent = document.querySelector('#popup-popupViewEvent')
+// popupViewEvent.addEventListener('click', event => {
+//     const classNameOfClickedElement = event.target.classList[0]
+//     const classNames = ['popup-close', 'popup-wrapper']
+//     const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+//     if (shouldClosePopup) {
+//         popupViewEvent.style.display = 'none'
+//     }
+// })
+
+function openEvent(id) {
+    document.querySelector('#sub_title_2_3').innerText = 'Evento'
+    document.querySelector('#sub_title_2_3').style.fontSize = '40px'
+    const eventReq = eventList[eventList.findIndex(el => el.id === id)]
+
+    // document.querySelector('#popupToChangeColor_2').style.backgroundColor = eventReq.color + '33'
+
+    popupViewEvent.style.display = 'block'
+    document.querySelector('#shoT_Title_2').innerText = `${eventReq.name}`
+    document.querySelector('#shoT_Descricao_2').innerText = eventReq.description
+    document.querySelector('#shoT_Dia_2').innerText = `${eventReq.dateString}`
+
+
+    const toDay = new Date()
+    const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+    const day = toDay.getDate() + 1 < 10 ? 0 + (toDay.getDate()).toString() : toDay.getDate()
+    const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+
+    const dif = diffDates(new Date(eventReq.prazoDateFormat), toDay)
+    var finalString = `faltam ${dif} dias`
+    if (dif < 0) {
+        if (Math.abs(dif) == 1) {
+            finalString = `Já se passou um dia`
+        } else {
+            finalString = `Já se passaram ${Math.abs(dif)} dias`
+        }
+
+    } else {
+        if (Math.abs(dif) == 1) {
+            finalString = `Resta um dia para o evento`
+        } else if (dif == 0) {
+            finalString = `Hoje é o dia do evento`
+        } else {
+            finalString = `Restam ${Math.abs(dif)} dias para o evento`
+        }
+    }
+    document.querySelector('#shoT_Hoje_2').innerText =
+        `Hoje é dia ${toDayString}, o evento ${eventReq.name} ${dif < 0 ? "aconteceu" : dif > 0 ? "acontecerá" : "acontece"} dia ${eventReq.dateString}, ${finalString.toLowerCase()}.`
+}

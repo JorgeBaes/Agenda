@@ -86,7 +86,7 @@
           "prazoDate": "2020-09-10T00:00:00.000Z",
           "prazoDateFormat": "9 10 2020",
           "descricao": "",
-          "done": false
+          "done": true
         }
       ]
     }

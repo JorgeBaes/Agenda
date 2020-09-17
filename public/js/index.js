@@ -401,7 +401,7 @@ function updateTaskPorcentageBar(){
         })){
             return activities
         }      
-        return undefined
+        return activities
     }).filter(_ => _!== undefined)
     const numOfTasksDone = arrayWithCountedSubs
         .flat()
@@ -497,19 +497,26 @@ socket.on('updateSubjects', list => {
     subjectList = list
     const listOfSelectors = [...document.querySelectorAll('.selectSubDay')]
     for (let selector of listOfSelectors) {
-        selector.innerHTML = '<option value="">Tag</option>'
-        
+        selector.innerHTML = '<option value="">Tag</option>'        
         subjectList.forEach( ({name}) => {
             selector.innerHTML +=`<option value="${name}">${name}</option>`
         })
     }
     const tagsSpace = document.querySelector('#tagsSpace')
     tagsSpace.innerHTML = ''
-    subjectList.forEach(({name, id}) => {
+    subjectList.forEach(({name, id, activities}) => {
+        const arrAux = activities.reduce((acc, current) => {
+            if(!current.done){
+                return acc+1
+            }
+            return acc 
+        },0)
+        valu = arrAux == 0 ? `<span id="activitiesNumNotificationFree"></span>` : `<span id="activitiesNumNotificationNotFree">${arrAux}</span>`
+        
         tagsSpace.innerHTML += `
         <tr>
-            <td class="pointer" id="subId_${id}" onclick="openTabDirectFromRoot('${id}')">
-                ${name}
+            <td class="pointer text-left" id="subId_${id}" onclick="openTabDirectFromRoot('${id}')">
+                ${valu}&nbsp${name} 
             </td>
         </tr>
         `
@@ -759,7 +766,7 @@ function diffDates(dateOne, dateTwo) {
 
 //     document.querySelector('#shoT_Hoje').innerText = `Hoje ${toDayString}`
 //     const dif = diffDates(new Date(t.prazoDate), toDay)
-//     document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
+//     document.querySelector('#shoT_Title').style.background = t.done ? 'rgb(174, 255, 255)' : 'rgb(255, 174, 174)'
 //     document.querySelector('#shoT_TempoRestante').style.background = t.done ? 'rgb(174, 255, 178)' : 'rgb(255, 174, 174)'
 //     if (dif < 0) {
 //         if (Math.abs(dif) == 1) {
