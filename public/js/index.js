@@ -1026,6 +1026,6 @@ function openEvent(id){
             finalString = `Restam ${Math.abs(dif)} dias para o evento`
         }
     }
-    document.querySelector('#shoT_Hoje_2').innerText = 
+    document.querySelector('#shoT_Hoje_2').innerHTML = 
     `Hoje é dia ${toDayString}, o evento ${eventReq.name} ${dif<0?"aconteceu":dif>0?"acontecerá":"acontece"} dia ${eventReq.dateString}, ${finalString.toLowerCase()}.`
 }
