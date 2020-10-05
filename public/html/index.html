@@ -18,7 +18,7 @@
     
     <div id="container">
         <span class="colorChangerText"
-            style="position: fixed; bottom: calc(6.5rem + 0px); left: 10px; font-size: 25px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Colorir tags</span>
+            style="position: fixed; bottom: calc(5.5rem + 0px); left: 10px; font-size: 25px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Colorir tags</span>
         <div class="toggle">
             <input type="checkbox" name="toggle" class="check-checkbox" id="mytoggle">
             <label class="check-label" for="mytoggle">
@@ -158,8 +158,8 @@
     </div>
 
 
-    <div class="popup-wrapper" id="popup-wraper-editRow">
-        <div class="popup">
+    <div class="popup-wrapper-create" id="popup-wraper-editRow">
+        <div class="popup-create">
             <div class="popup-close">X</div>
             <div class="popup-content">
                 <table class="table-fill">
@@ -241,11 +241,11 @@
             </div>
         </div>
     </div>
-    <div class="popup-wrapper" id="popup-wraper-createRow">
-        <div class="popup">
+    <div class="popup-wrapper-create" id="popup-wraper-createRow">
+        <div class="popup-create">
             <div class="popup-close">X</div>
             <div class="popup-content">
-                <table class="table-fill">
+                <table class="table-fill" style="width: 100%;">
                     <thead>
                         <tr>
                             <th class="text-center">Horário</th>
@@ -369,7 +369,10 @@
                         <span id="shoT_Dia_2"></span><br><br>
                         <p id="shoT_Descricao_2" style="color: rgb(31, 0, 3); "></p><br><br>
                         <p id="shoT_Hoje_2" style="color: rgb(0, 0, 119); margin: auto;"></p>
-                        
+                        <br><br><br><br>
+                        <div id="checkbox_div">
+                            
+                        </div>
                     </div>
                 </div>
     
@@ -442,14 +445,14 @@
     </div>
     
 
-    <span style="position: fixed; bottom: 28px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
+    <span style="position: fixed; bottom: 20px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
     
     <div id="indicatorRed"></div>
     <div id="indicatorGreen"></div>
     <div id="hoverButtonOfTagsHow" class="pointer" style="position: fixed; transition: 0.8s; top: 20%; left: 0px; width: 30px; height: 0px;background-color: rgba(0, 0, 0, 0.39);"></div>
     <table id="tableOfTags" style="display: block; opacity: 0;transition: 1s; position: fixed; top: 20%; pointer-events: none; left: 0; background-color: rgb(0, 0, 0); overflow-y: scroll; max-height: 59%;">
         <thead>
-            <th class="text-center">
+            <th style="text-align: center;">
                 Tags
             </th>
         </thead>

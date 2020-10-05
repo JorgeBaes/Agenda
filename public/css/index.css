@@ -61,7 +61,7 @@ span.openPopupCreateSubText{
 
 #indicatorRed{
     width: 50%;
-    height:25px;
+    height:12px;
     background-color: rgb(251, 98, 98);
     position: fixed;
     left: 0; 
@@ -72,7 +72,7 @@ span.openPopupCreateSubText{
 
 #indicatorGreen{
     width: 50%;
-    height:25px;
+    height:12px;
     background-color: rgb(138, 255, 109); 
     position: fixed;
     right: 0;    
@@ -177,3 +177,64 @@ input{
     /* border-radius: 20px; */
     box-shadow: 0px 0px 8px 1px  black;
 }
+
+#redus_span{
+    background-color: rgb(250, 202, 202);
+    padding: 40px 35px 30px 35px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 15px black;
+    transition: 1s ease;
+}
+#redus_span:hover{
+    background-color: rgb(255, 221, 221);
+    box-shadow: 0px 0px 25px rgb(133, 133, 133);    
+}
+#greenes_span{
+    background-color: rgb(191, 253, 202);
+    padding: 40px 35px 30px 35px;
+    border-radius: 50px;
+    box-shadow: 0px 0px 15px black;
+    transition: 1s ease;
+}
+#greenes_span:hover{
+    background-color: rgb(211, 255, 219);
+    box-shadow: 0px 0px 25px rgb(107, 107, 107);    
+}
+#greenes_span svg{
+    animation: turn 1200ms cubic-bezier(0.6, 0.2, 0.845, 0.9915) 0s ;  
+}
+#greenes_span:hover > svg{
+    animation: bounceSVG 1s;  
+}
+#redus_span svg{
+    animation: turn 1200ms cubic-bezier(0.6, 0.2, 0.845, 0.9915) 0s ;  
+}
+#redus_span:hover > svg{
+    animation: bounceSVG 1s;  
+}
+@keyframes turn{
+    0%{
+        transform: scale(2.5) rotate(0deg);
+    }
+    25%{
+        transform: scale(2.35) rotate(-0deg);
+    }
+    100%{
+        transform: scale(2.5) rotate(0deg);
+    }
+}
+@keyframes bounceSVG{
+    0%{
+        transform: scale(2.5) translate3d(0px, 0px, 0px);
+    }
+    25%{
+        transform: scale(2.5) translate3d(0px, -0.5px, 0px);
+    }
+    75%{
+        transform: scale(2.5) translate3d(0px, 0.5px, 0px);
+    }
+    100%{
+        transform: scale(2.5) translate3d(0px, 0px, 0px);
+    }
+}
+select { text-align-last: center; }

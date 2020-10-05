@@ -42,7 +42,6 @@ const garbageSVG = `
 		<path d="M166,180c-8.284,0-15,6.716-15,15v212c0,8.284,6.716,15,15,15s15-6.716,15-15V195C181,186.716,174.284,180,166,180z"/>
 	</g>
 </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g>/g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`
-
 const editSVG = `
 <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" height="35px" width="35px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 477.873 477.873" style="enable-background:new 0 0 477.873 477.873; margin-right:-7px" xml:space="preserve">
 <title>Editar</title>
@@ -453,6 +452,9 @@ window.addEventListener('keydown', ({ key }) => {
     }
     if (key === 'Enter' && popup.style.display == 'block') {
         submitTarefa()
+    }
+    if (key === 'Enter' && popup3.style.display == 'block') {
+        updateTarefaEdited()
     }
     popup2.style.display = 'none'
 })

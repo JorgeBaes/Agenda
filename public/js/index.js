@@ -1,5 +1,24 @@
 const socket = io.connect('http://localhost:3000/');
 //https://mandrak.herokuapp.com/
+const cancelSGV = `
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2; transform:scale(2.5);" xml:space="preserve" width="20px" heigth="20px">
+<circle style="fill:#F15249;" cx="253.6" cy="253.6" r="253.6"/>
+<path style="fill:#AD0E0E;" d="M147.2,368L284,504.8c115.2-13.6,206.4-104,220.8-219.2L367.2,148L147.2,368z"/>
+<path style="fill:#FFFFFF;" d="M373.6,309.6c11.2,11.2,11.2,30.4,0,41.6l-22.4,22.4c-11.2,11.2-30.4,11.2-41.6,0l-176-176  c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L373.6,309.6z"/>
+<path style="fill:#D6D6D6;" d="M280.8,216L216,280.8l93.6,92.8c11.2,11.2,30.4,11.2,41.6,0l23.2-23.2c11.2-11.2,11.2-30.4,0-41.6  L280.8,216z"/>
+<path style="fill:#FFFFFF;" d="M309.6,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6L197.6,373.6  c-11.2,11.2-30.4,11.2-41.6,0l-22.4-22.4c-11.2-11.2-11.2-30.4,0-41.6L309.6,133.6z"/>
+<g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+</svg>`
+const checkSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2; transform:scale(2.5);" xml:space="preserve" width="20px" heigth="20px">
+<circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6"/>
+<path style="fill:#0AA06E;" d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z"/>
+<g>
+	<path style="fill:#FFFFFF;" d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8   c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z"/>
+	<path style="fill:#FFFFFF;" d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2   c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z"/>
+</g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+</svg>
+`
 const editSVG = `
 <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" height="35px" width="35px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 477.873 477.873" style="enable-background:new 0 0 477.873 477.873; margin-right:-7px" xml:space="preserve">
 <title>Editar</title>
@@ -14,7 +33,6 @@ const editSVG = `
 	</g>
 </g><g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
 </svg>`
-
 const garbageSVG = `
 <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG" height="35px" width="35px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <title>Deletar</title>
@@ -69,7 +87,7 @@ function addRowToWeekBoardOpenPopup(){
 }
 popupCreateRow.addEventListener('click', event => {
     const classNameOfClickedElement = event.target.classList[0]
-    const classNames = ['popup-close', 'popup-wrapper']
+    const classNames = ['popup-close', 'popup-wrapper-create']
     const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
     if (shouldClosePopup) {
         popupCreateRow.style.display = 'none'
@@ -83,6 +101,7 @@ popupViewEvent.addEventListener('click', event => {
     const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
     if (shouldClosePopup) {
         popupViewEvent.style.display = 'none'
+        document.querySelector('#checkbox_div').style.display = 'none'
     }
 })
 
@@ -254,7 +273,7 @@ function deleteSub(){
 const popupEditRow = document.querySelector('#popup-wraper-editRow')
 popupEditRow.addEventListener('click', event => {
     const classNameOfClickedElement = event.target.classList[0]
-    const classNames = ['popup-close', 'popup-wrapper']
+    const classNames = ['popup-close', 'popup-wrapper-create']
     const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
     if (shouldClosePopup) {
         popupEditRow.style.display = 'none'
@@ -524,8 +543,14 @@ socket.on('updateSubjects', list => {
     updateWeekColors()
     updateTaskPorcentageBar()
     document.querySelector('#hoverButtonOfTagsHow').style.height = `${document.querySelector('#tableOfTags').offsetHeight - 2}px`
-
     fillTableCalendar(monthCounter, yearCounter)
+    if (document.querySelector('#checkbox_div').style.display == 'block'){
+        if (tarefaOpened.t != null && tarefaOpened.sub != null){
+            const newSub = subjectList[subjectList.findIndex(el => el.name === tarefaOpened.sub.name)]
+            const newtarefa = newSub.activities[newSub.activities.findIndex(el => el.id === tarefaOpened.t.id)]
+            openTarefa(newtarefa, newSub)
+        }
+    }
 })
 
 socket.on('updateEvents', e_l => {
@@ -559,6 +584,7 @@ window.addEventListener('keydown', ({key}) => {
         popupViewTarefa.style.display = 'none'
         popupCreateEvent.style.display = 'none'
         popupViewEvent.style.display = 'none'
+        document.querySelector('#checkbox_div').style.display = 'none'
         popupEditEvent.style.display = 'none'
         resetInputs()
     }
@@ -573,6 +599,9 @@ window.addEventListener('keydown', ({key}) => {
     }
     if (key === 'Enter' && popupCreateEvent.style.display == 'block') {
         createEvent()
+    }
+    if (key === 'Enter' && popupEditEvent.style.display == 'block') {
+        updateEventEdited()
     }
 })
 
@@ -711,7 +740,6 @@ function fillTableCalendar(month, year) {
     })
 }
 
-
 function fowardMonth() {
     monthCounter++
     if (monthCounter == 12) {
@@ -792,8 +820,12 @@ function diffDates(dateOne, dateTwo) {
 
 // }
 
-function openTarefa(t, sub){
+var tarefaOpened = {t:null,sub:null}
 
+function openTarefa(t, sub){
+    tarefaOpened.t = t
+    tarefaOpened.sub = sub
+    document.querySelector('#checkbox_div').style.display = 'block'
     popupViewEvent.style.display = 'block'
 
     document.querySelector('#sub_title_2_3').innerText = sub.name
@@ -828,6 +860,10 @@ function openTarefa(t, sub){
     }
     document.querySelector('#shoT_Hoje_2').innerText =
         `Hoje é dia ${toDayString}, a tarefa ${t.tarefa} ${dif < 0 ? `era pro dia ${t.prazo}` : dif > 0 ? `é pro dia ${t.prazo}` : "é pra hoje"}, ${finalString.toLowerCase()}.`
+
+    document.querySelector('#checkbox_div').innerHTML = `
+        <span onclick="checkUncheckExp('${t.id}','${sub.id}')" class="pointer" id="${t.done ? 'greenes_span' : 'redus_span'}">${t.done ? checkSVG : cancelSGV}</span>
+    `
 }
 
 /////
@@ -991,6 +1027,7 @@ function deleteEvent(id, name){
 }
 
 function openEvent(id){
+    document.querySelector('#checkbox_div').style.display = 'none'
     document.querySelector('#sub_title_2_3').innerText = 'Evento'
     document.querySelector('#sub_title_2_3').style.fontSize = '40px'
     const eventReq = eventList[eventList.findIndex( el => el.id === id)]
@@ -1028,4 +1065,8 @@ function openEvent(id){
     }
     document.querySelector('#shoT_Hoje_2').innerHTML = 
     `Hoje é dia ${toDayString}, o evento ${eventReq.name} ${dif<0?"aconteceu":dif>0?"acontecerá":"acontece"} dia ${eventReq.dateString}, ${finalString.toLowerCase()}.`
+}
+
+function checkUncheckExp(tID,sID){
+    socket.emit('checkUncheckExp',{tID,sID})
 }

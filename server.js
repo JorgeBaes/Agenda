@@ -339,6 +339,19 @@ io.sockets.on('connection', function (socket) {
     })    
 
 
+    socket.on('checkUncheckExp', ({ tID, sID }) => {
+        let subs = db
+            .get('subjects')
+            .value();
+        const sub = subs[subs.findIndex(el => el.id === sID)]
+        const index = sub.activities.findIndex(el => el.id == tID)
+        sub.activities[index].done = !sub.activities[index].done
+        db.get('subjects')
+            .assign(subs)
+            .write();
+        io.emit('updateSubjects', value('subjects'))
+    })
+
     /////
 
     socket.on('createEvent', newEvent => {
