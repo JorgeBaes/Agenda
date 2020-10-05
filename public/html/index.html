@@ -13,9 +13,7 @@
 
     <meta name="viewport"content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
     </head>
-<body class="disable-select"> 
-    
-    
+<body class="disable-select">    
     <div id="container">
         <span class="colorChangerText"
             style="position: fixed; bottom: calc(5.5rem + 0px); left: 10px; font-size: 25px; color: aliceblue; background-color: black; padding: 5px 10px; border-radius: 10px;">Colorir tags</span>
@@ -443,7 +441,33 @@
             </div>
         </div>
     </div>
-    
+    <div class="popup-wrapper" id="popup-addTarefa">
+        <div class="popup">
+            <div class="popup-close">×</div>
+            <div class="popup-content">
+                <div style="margin: 10px auto 20px auto;">
+                    <span id="addTarefaSubTitle" style="font-size: 45px; color: darkblue;">None</span><br>
+                    <span style="font-size: 30px; color: rgb(39, 0, 58);">Adicione uma Tarefa</span>
+                </div>
+                <div id="form">
+                    <div>
+                        <input type="text" id="tarefaTitleForm" style="font-size: 30px; height: 40px;" placeholder="Tarefa"
+                            maxlength="30" />
+                    </div>
+                    <div>
+                        <input type="date" value="" class="pointer" id="prazoForm" style="font-size: 30px; height: 40px;"
+                            placeholder="Prazo" maxlength="30">
+                    </div>
+                    <div>
+                        <textarea id="descricao" placeholder="Descrição" style="font-size: 20px; height: 160px;"></textarea>
+                    </div>
+                    <div class="button">
+                        <button id="addTarefa" onclick="addTaskToSub()">Adicionar Tarefa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <span style="position: fixed; bottom: 20px; right: 8px; font-size: 30px;"><a style="text-decoration: none; color: rgb(97, 1, 1);" target="blank" href="../html/credits.html">Créditos</a></span>
     

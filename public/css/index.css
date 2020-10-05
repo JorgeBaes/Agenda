@@ -34,6 +34,12 @@ body{
 .animateSVG:hover{
     animation: bounce 600ms;
 }
+.animateSVG2{
+    animation: animateSVG2_ 400ms ease;
+}
+.animateSVG2:hover{
+    animation: animateSVG2 300ms ease;
+}
 .animateSVG{
     animation: bounce_ 900ms;
     cursor: pointer;
@@ -81,6 +87,31 @@ span.openPopupCreateSubText{
     transition: 1.5s ease;
 }
 
+@keyframes animateSVG2{
+    0%{
+        transform: scale(1);
+    }
+    55%{
+        transform: scale(0.9);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+@keyframes animateSVG2_{
+    0%{
+        transform: rotate(0deg);
+    }
+    33%{
+        transform: rotate(5deg);
+    }
+    66%{
+        transform: rotate(-10deg);
+    }
+    100%{
+        transform: rotate(5deg);
+    }
+}
 
 @keyframes bounce{
     0%{
@@ -238,3 +269,194 @@ input{
     }
 }
 select { text-align-last: center; }
+
+
+#form {
+    /* Apenas para centralizar o form na página */
+    margin: auto;
+    width: 500px;
+    /* Para ver as bordas do formulário */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+#form input, textarea {
+    /* Para certificar-se que todos os campos de texto têm as mesmas configurações de fonte. Por padrão, textareas ter uma fonte monospace*/
+    font: 1em sans-serif;
+
+    /* Para dar o mesmo tamanho a todos os campo de texto */
+    width: 80%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /* Para harmonizar o look & feel das bordas nos campos de texto*/
+    border: 1px solid #999;
+}
+#form input:focus, textarea:focus {
+    /* Dar um pouco de destaque nos elementos ativos */
+    /* border-color: #000; */
+}
+#form textarea {
+    /* Para alinhar corretamente os campos de texto de várias linhas com sua label*/
+    vertical-align: top;
+
+    /* Para dar espaço suficiente para digitar algum texto */
+    height: 5em;
+
+    /* Para permitir aos usuários redimensionarem qualquer textarea verticalmente. Ele não funciona em todos os browsers */
+    resize: vertical;
+}
+#form div + div {
+    margin-top: 1em;
+}
+
+#tarefaTitleForm , #tarefaTitleForm_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#tarefaTitleForm:hover{
+    background-color: rgb(219, 235, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#tarefaTitleForm:focus{
+    background-color: rgb(212, 255, 223);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#tarefaTitleForm_edit:hover{
+    background-color: rgb(217, 233, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#tarefaTitleForm_edit:focus{
+    background-color: rgb(220, 255, 229);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#descricao , #descricao_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+}
+#descricao:hover{
+    background-color: rgb(219, 235, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#descricao:focus{
+    background-color: rgb(214, 255, 225);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#descricao_edit:hover{
+    background-color: rgb(214, 232, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#descricao_edit:focus{
+    background-color: rgb(220, 255, 229);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#prazoForm, #prazoForm_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#prazoForm:hover{
+    background-color: rgb(215, 233, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#prazoForm:focus{
+    background-color: rgb(221, 255, 230);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#addTarefa, #editTarefa{
+    width: fit-content;
+    background-color: rgb(12, 0, 46);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 1px 0px rgb(195, 255, 210);
+    font-size: 1.4vw;
+    font-family: Arial, Helvetica, sans-serif;
+    animation: popout3 0.5s ease 100ms;
+    outline: none;
+    transition: background-color 1s ease 0.5s,border-radius 800ms ease 100ms, color 1s ease-in 0.6s, box-shadow 2000ms ease-out 0.1s;
+
+}
+#addTarefa:hover{
+    background-color: rgb(53, 53, 53);
+    border-radius: 25px;
+    color: rgb(220, 255, 206);
+    box-shadow: 0px 0px 30px 0px rgb(201, 255, 204);
+    animation: popout4 0.5s ease;
+    cursor: pointer;
+    transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
+}
+
+#editTarefa:hover{    
+    background-color: rgb(188, 236, 160);
+    border-radius: 25px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 30px 0px rgb(201, 255, 204);
+    animation: popout4 0.5s ease;
+    cursor: pointer;
+    transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
+}
+
+@-webkit-keyframes popout3 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.03)}
+    to{transform:scale(1)}
+}
+@keyframes popout3 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.03)}
+    to{transform:scale(1)}
+}
+@-webkit-keyframes popout4 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.021)}
+    to{transform:scale(1)}
+}
+@keyframes popout4 {
+    from{transform:scale(1)}
+    50%{transform:scale(1.021)}
+    to{transform:scale(1)}
+}
+@-webkit-keyframes popout {
+    from{transform:scale(1)}
+    50%{transform:scale(1.01)}
+    to{transform:scale(1)}
+}
+@keyframes popout {
+    from{transform:scale(1)}
+    50%{transform:scale(1.01)}
+    to{transform:scale(1)}
+}

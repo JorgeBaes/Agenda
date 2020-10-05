@@ -407,25 +407,25 @@ body{
     font-size: 50px;
 }
 #tarefaTitleForm:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(219, 235, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #tarefaTitleForm:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(212, 255, 223);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
 }
 #tarefaTitleForm_edit:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(217, 233, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #tarefaTitleForm_edit:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(220, 255, 229);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
@@ -439,25 +439,25 @@ body{
     height: 40px;
 }
 #descricao:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(219, 235, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #descricao:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(214, 255, 225);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
 }
 #descricao_edit:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(214, 232, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #descricao_edit:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(220, 255, 229);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
@@ -472,26 +472,26 @@ body{
     font-size: 50px;
 }
 #prazoForm:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(215, 233, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #prazoForm:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(221, 255, 230);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
 }
 
 #prazoForm_edit:hover{
-    background-color: rgb(182, 214, 255);
+    background-color: rgb(215, 233, 255);
     border-radius: 15px;
     box-shadow:  0px 0px 5px 0px #3c00ff;
     animation: popout 0.2s;
 }
 #prazoForm_edit:focus{
-    background-color: rgb(188, 255, 205);
+    background-color: rgb(223, 255, 231);
     border-radius: 10px;
     box-shadow:  0px 0px 7px 0px #000000;
     animation: popout3 0.2s ;
@@ -530,6 +530,125 @@ body{
     transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
 }
 
+#tarefaTitleForm , #tarefaTitleForm_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#tarefaTitleForm:hover{
+    background-color: rgb(219, 235, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#tarefaTitleForm:focus{
+    background-color: rgb(212, 255, 223);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#tarefaTitleForm_edit:hover{
+    background-color: rgb(217, 233, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#tarefaTitleForm_edit:focus{
+    background-color: rgb(220, 255, 229);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#descricao , #descricao_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+}
+#descricao:hover{
+    background-color: rgb(219, 235, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#descricao:focus{
+    background-color: rgb(214, 255, 225);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#descricao_edit:hover{
+    background-color: rgb(214, 232, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#descricao_edit:focus{
+    background-color: rgb(220, 255, 229);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#prazoForm, #prazoForm_edit{
+    font-family: sans-serif;
+    width: 70%;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.5s, border-radius 0.7s, box-shadow 0.2s;
+    height: 40px;
+    font-size: 50px;
+}
+#prazoForm:hover{
+    background-color: rgb(215, 233, 255);
+    border-radius: 15px;
+    box-shadow:  0px 0px 5px 0px #3c00ff;
+    animation: popout 0.5s;
+}
+#prazoForm:focus{
+    background-color: rgb(221, 255, 230);
+    border-radius: 10px;
+    box-shadow:  0px 0px 7px 0px #000000;
+    animation: popout3 0.5s ;
+}
+#addTarefa, #editTarefa{
+    width: fit-content;
+    background-color: rgb(12, 0, 46);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 1px 0px rgb(195, 255, 210);
+    font-size: 1.4vw;
+    font-family: Arial, Helvetica, sans-serif;
+    animation: popout3 0.5s ease 100ms;
+    outline: none;
+    transition: background-color 1s ease 0.5s,border-radius 800ms ease 100ms, color 1s ease-in 0.6s, box-shadow 2000ms ease-out 0.1s;
+
+}
+#addTarefa:hover{
+    background-color: rgb(53, 53, 53);
+    border-radius: 25px;
+    color: rgb(220, 255, 206);
+    box-shadow: 0px 0px 30px 0px rgb(201, 255, 204);
+    animation: popout4 0.5s ease;
+    cursor: pointer;
+    transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
+}
+
+#editTarefa:hover{    
+    background-color: rgb(188, 236, 160);
+    border-radius: 25px;
+    color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 30px 0px rgb(201, 255, 204);
+    animation: popout4 0.5s ease;
+    cursor: pointer;
+    transition: background-color 1.2s ease,border-radius 1000ms ease, color 1.2s ease-in, box-shadow 2000ms ease-out;
+}
 input, button, textarea{    
     outline: none;
 }

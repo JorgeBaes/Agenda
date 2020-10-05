@@ -80,6 +80,32 @@ colorInput.addEventListener('input', () => {
 })
 
 
+const tarefaTitleADD = document.querySelector('#tarefaTitleForm')
+const tarefaDateADD = document.querySelector('#prazoForm')
+const descricaoADD = document.querySelector('#descricao')
+tarefaDateADD.valueAsDate = new Date()
+
+const popupaddTarefa = document.querySelector('#popup-addTarefa')
+var subIDTOADDTASK = null
+function openPopupAddTaskToSub(subID) {
+    subIDTOADDTASK = subID
+    popupaddTarefa.style.display = 'block'
+    const thatSub = subjectList[subjectList.findIndex(el => el.id == subIDTOADDTASK)]
+    document.querySelector('#addTarefaSubTitle').innerText = thatSub.name
+}
+
+popupaddTarefa.addEventListener('click', event => {
+    const classNameOfClickedElement = event.target.classList[0]
+    const classNames = ['popup-close', 'popup-wrapper']
+    const shouldClosePopup = classNames.some(className => className === classNameOfClickedElement)
+    if (shouldClosePopup) {
+        popupaddTarefa.style.display = 'none'
+        tarefaDateADD.valueAsDate = new Date()
+        tarefaTitleADD.value = ''
+        descricaoADD.value = ''
+        popupaddTarefa.style.display = 'none'
+    }
+})
 
 const popupCreateRow = document.querySelector('#popup-wraper-createRow')
 function addRowToWeekBoardOpenPopup(){
@@ -181,6 +207,11 @@ function resetInputs(){
     selectSubDay6.value = ''
     selectSubDay7.value = ''
     inputTime.value = ''
+    popupaddTarefa.style.display = 'none'
+    tarefaDateADD.valueAsDate = new Date()
+    tarefaTitleADD.value = ''
+    descricaoADD.value = ''
+    popupaddTarefa.style.display = 'none'
 }
 
 const convertToDayTime = time => 
@@ -375,10 +406,10 @@ function updateWeekColors(){
             })        
         }
         subjectList.forEach(({id, color}) => {
-            const htmlOBJ = document.querySelector(`#subId_${id}`)
-            if (htmlOBJ){
-                htmlOBJ.style.backgroundColor = color
-            }
+            const htmlOBJS = [...document.querySelectorAll(`.subId_${id}`)]
+            htmlOBJS.forEach( el => {
+                el.style.backgroundColor = color
+            })            
         })
         const divToHaveColorsChange = [...document.querySelectorAll(`.divToHaveColorsChange`)]
         divToHaveColorsChange.forEach( el => {
@@ -397,10 +428,10 @@ function updateWeekColors(){
             })
         }
         subjectList.forEach(({ id }) => {
-            const htmlOBJ = document.querySelector(`#subId_${id}`)
-            if (htmlOBJ) {
-                htmlOBJ.style.backgroundColor = 'white'
-            }
+            const htmlOBJS = [...document.querySelectorAll(`.subId_${id}`)]
+            htmlOBJS.forEach(el => {
+                el.style.backgroundColor = 'White'
+            }) 
         })
         const divToHaveColorsChange = [...document.querySelectorAll(`.divToHaveColorsChange`)]
         divToHaveColorsChange.forEach(el => {
@@ -534,8 +565,23 @@ socket.on('updateSubjects', list => {
         
         tagsSpace.innerHTML += `
         <tr>
-            <td class="pointer text-left" id="subId_${id}" onclick="openTabDirectFromRoot('${id}')">
+            <td class="pointer text-left subId_${id}"  onclick="openTabDirectFromRoot('${id}')">
                 ${valu}&nbsp${name} 
+            </td>
+            <td class="pointer subId_${id}" onclick="openPopupAddTaskToSub('${id}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="animateSVG2" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
+            viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve" width="45px" heigth="45px">            
+            <g>
+                <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
+                    <path
+                        d="M4173.5,4997.4c-176.2-49.8-379.3-191.6-454-318l-30.6-51.7l-432.9-9.6c-287.3-3.8-455.9-15.3-503.8-32.6c-113-40.2-249-155.2-318-268.2l-63.2-105.4l-616.8-9.6c-597.6-9.6-618.7-11.5-699.2-53.6c-126.4-67-228-168.6-285.4-287.3L716,3752.4V-289.4v-4041.7l47.9-95.8c59.4-122.6,174.3-237.5,296.9-296.9l95.8-47.9l2040-5.7c1863.8-5.8,2045.8-3.8,2099.4,24.9c116.9,61.3,141.8,224.1,47.9,318l-55.5,55.6h-1996c-2212.4,0-2091.7-7.7-2153,124.5c-26.8,57.5-30.6,452-30.6,3963.2c0,3329.1,3.8,3911.5,26.8,3967c49.8,118.8,82.4,124.5,668.5,124.5h526.8l7.7-145.6c5.7-136,11.5-149.4,69-201.1l61.3-55.5h1911.7c1735.5,0,1915.5,1.9,1955.8,30.6c61.3,44.1,97.7,141.7,97.7,266.3v105.4h526.8c442.5,0,538.3-5.7,586.2-30.6c116.9-59.4,113,0,113-1827.4c0-1812.1-3.8-1746.9,105.4-1796.7c90-42.1,160.9-28.7,231.8,42.1l65.1,65.1l-3.8,1750.8l-5.7,1748.9l-53.6,109.2c-57.5,118.8-159,220.3-285.4,287.3c-80.5,42.1-97.7,44.1-699.2,49.8l-616.8,5.8l-57.5,101.5c-67.1,120.7-147.5,191.6-289.2,258.6c-101.5,47.9-120.7,49.8-536.3,57.5l-431,5.7l-57.5,78.5c-76.6,105.4-224.1,214.5-354.4,264.3C4531.7,5024.3,4311.4,5035.8,4173.5,4997.4z M4504.9,4597.1c113-40.2,195.4-114.9,252.8-229.9c82.4-162.8,91.9-164.7,660.8-164.7h482.7l55.5-55.5c51.7-51.7,55.6-67,55.6-201.1v-145.6H4384.2H2756V3942c0,124.5,5.7,151.3,46,197.3l46,53.6l517.2,9.6l519.1,9.6l57.5,55.6c32.6,32.6,59.4,67,59.4,78.5c0,44.1,114.9,180.1,176.2,212.6C4309.5,4627.7,4391.9,4637.3,4504.9,4597.1z" />
+                    <path
+                        d="M6780.5-300.8c-331.4-38.3-712.6-182-999.9-375.5c-664.7-444.4-1057.4-1275.7-976.9-2057.2c59.4-559.3,252.8-973.1,643.6-1367.7c277.7-281.6,530.6-444.4,860.1-555.5c823.7-275.8,1710.5-70.9,2317.8,538.3c609.1,607.2,814.1,1494.1,538.3,2317.8c-111.1,329.5-273.9,582.3-555.5,860.1C8221-557.5,7807.3-360.2,7269-300.8C7064-277.9,6985.5-277.9,6780.5-300.8z M7420.3-737.6c1103.3-228,1752.7-1438.6,1325.5-2472.9c-419.5-1019.1-1593.7-1455.8-2555.3-948.2c-494.2,260.5-837.1,712.6-948.2,1254.7c-53.6,258.6-40.2,628.3,30.7,871.6C5472.2-1364,5995.2-879.3,6675.2-731.8C6864.8-691.6,7211.5-693.5,7420.3-737.6z" />
+                    <path
+                        d="M6956.7-1532.5c-105.4-47.9-120.7-103.4-120.7-471.2v-325.6h-325.6c-371.6,0-425.3-13.4-471.2-128.3c-38.3-88.1-19.2-164.7,53.6-226c55.5-47.9,61.3-47.9,400.3-47.9h342.9v-346.7v-346.7l65.1-65.1c46-46,82.4-65.1,126.4-65.1c67.1,0,162.8,47.9,185.8,93.9c7.6,17.2,19.1,185.8,24.9,375.4l9.6,344.8l344.8,9.6c189.6,5.7,358.2,17.3,375.4,24.9c46,23,93.9,118.8,93.9,185.8c0,44-19.2,80.4-65.1,126.4l-65.1,65.1H7585h-346.7v344.8v344.8l-51.7,57.5C7123.4-1513.4,7041-1496.1,6956.7-1532.5z" />
+                </g>
+            </g>
+        </svg>
             </td>
         </tr>
         `
@@ -586,6 +632,7 @@ window.addEventListener('keydown', ({key}) => {
         popupViewEvent.style.display = 'none'
         document.querySelector('#checkbox_div').style.display = 'none'
         popupEditEvent.style.display = 'none'
+        popupaddTarefa.style.display = 'none'
         resetInputs()
     }
     if (key === 'Enter' && popupCreateRow.style.display == 'block') {
@@ -602,6 +649,9 @@ window.addEventListener('keydown', ({key}) => {
     }
     if (key === 'Enter' && popupEditEvent.style.display == 'block') {
         updateEventEdited()
+    }
+    if (key === 'Enter' && popupaddTarefa.style.display == 'block') {
+        addTaskToSub()
     }
 })
 
@@ -1067,6 +1117,48 @@ function openEvent(id){
     `Hoje é dia ${toDayString}, o evento ${eventReq.name} ${dif<0?"aconteceu":dif>0?"acontecerá":"acontece"} dia ${eventReq.dateString}, ${finalString.toLowerCase()}.`
 }
 
+
+
+function addTaskToSub(){
+    if (subIDTOADDTASK != null){
+        const toDay = new Date()
+        const month = toDay.getMonth() + 1 < 10 ? 0 + (toDay.getMonth() + 1).toString() : toDay.getMonth() + 1
+        var day = '0' + toDay.getDate()
+        if (day.length == 3) {
+            day = day.slice(1)
+        } const toDayString = `${day}/${month}/${toDay.getUTCFullYear()}`
+        if (tarefaTitleADD.value) {
+            var activitiesTotalList = subjectList.map(({ activities }) => activities).flat()
+            var id = idGenerator(10)
+            while (activitiesTotalList.map(el => el.id).indexOf(id) != -1) {
+                id = idGenerator(10)
+            }
+            const prazoDATE = new Date(tarefaDateADD.value) || new Date()
+            const string_date_prazo = `${prazoDATE.getUTCMonth() + 1} ${prazoDATE.getUTCDate()} ${prazoDATE.getUTCFullYear()}`
+            const newTarefa =
+            {
+                id: id,
+                tarefa: tarefaTitleADD.value,
+                dia: toDayString,
+                diaDate: toDay,
+                prazo: putItRight(tarefaDateADD.value),
+                prazoDate: prazoDATE,
+                prazoDateFormat: string_date_prazo,
+                descricao: descricaoADD.value,
+                done: false
+            }
+            socket.emit('newTarefa', { newTarefa: newTarefa, hashCode: subIDTOADDTASK })
+            tarefaDateADD.valueAsDate = new Date()
+            tarefaTitleADD.value = ''
+            descricaoADD.value = ''
+            popupaddTarefa.style.display = 'none'
+        } else {
+            window.alert('Qual o nome de sua Tarefa?')
+        }
+    }
+}
+
 function checkUncheckExp(tID,sID){
     socket.emit('checkUncheckExp',{tID,sID})
 }
+
