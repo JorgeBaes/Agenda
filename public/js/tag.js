@@ -450,10 +450,12 @@ window.addEventListener('keydown', ({ key }) => {
     if ((key === 'a' || key === 'A') && popup.style.display != 'block' && popup3.style.display != 'block' && popup2.style.display != 'block' && popupViewEvent.style.display != 'block' && poputTutorial.style.display != 'block') {
         popupAddClicked()
     }
-    if (key === 'Enter' && popup.style.display == 'block') {
+    const isTextAreaAddTarefaFocused = document.querySelector('#descricao') === document.activeElement
+    if (key === 'Enter' && popup.style.display == 'block' && !isTextAreaAddTarefaFocused) {
         submitTarefa()
     }
-    if (key === 'Enter' && popup3.style.display == 'block') {
+    const isTextAreaEditTarefaFocused = document.querySelector('#descricao_edit') === document.activeElement
+    if (key === 'Enter' && popup3.style.display == 'block' && !isTextAreaEditTarefaFocused) {
         updateTarefaEdited()
     }
     popup2.style.display = 'none'

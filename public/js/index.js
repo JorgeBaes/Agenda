@@ -644,13 +644,16 @@ window.addEventListener('keydown', ({key}) => {
     if (key === 'Enter' && popupEditRow.style.display == 'block') {
         updateRowEdited()
     }
-    if (key === 'Enter' && popupCreateEvent.style.display == 'block') {
+    const isTextAreaAddEventFocused = document.querySelector('#eventdescription') === document.activeElement
+    if (key === 'Enter' && popupCreateEvent.style.display == 'block' && !isTextAreaAddEventFocused) {
         createEvent()
     }
-    if (key === 'Enter' && popupEditEvent.style.display == 'block') {
+    const isTextAreaEditEventFocused = document.querySelector('#eventdescription_edit') === document.activeElement
+    if (key === 'Enter' && popupEditEvent.style.display == 'block' && !isTextAreaEditEventFocused) {
         updateEventEdited()
     }
-    if (key === 'Enter' && popupaddTarefa.style.display == 'block') {
+    const isTextAreaAddTarefaFocused = document.querySelector('#descricao') === document.activeElement
+    if (key === 'Enter' && popupaddTarefa.style.display == 'block' && !isTextAreaAddTarefaFocused) {
         addTaskToSub()
     }
 })
